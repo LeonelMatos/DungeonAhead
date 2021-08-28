@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6093688676686322005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6093688676686322007}
+  - component: {fileID: 6093688676686322006}
+  m_Layer: 0
+  m_Name: ItemAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6093688676686322007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093688676686322005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6093688676686322006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093688676686322005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59c074e8a311834f862e4346f3305b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pfItemWorld: {fileID: 477558288028515642, guid: 37ba4d6d6fb683d4a8c1674fdbb4b772, type: 3}
+  coinSprite: {fileID: 21300000, guid: 69d45c5a7b6b2044d87bff775ebb1f94, type: 3}
+  energyPotionSprite: {fileID: 21300000, guid: 7046dff4e838c5642a940c7e0fbd7571, type: 3}
+  healthPotionSprite: {fileID: 21300000, guid: b573eabf55ff1b749b6caaac87a6096e, type: 3}
+  medkitSprite: {fileID: 21300000, guid: 0c1043e9c66eb0c4593418ba25990466, type: 3}
+  milkSprite: {fileID: 21300000, guid: 39d8b07b2d26cb04a8d834dab09dd858, type: 3}
+  nightVisionPotionSprite: {fileID: 21300000, guid: d9e2e036fff2183408beb3ee7d0c4950, type: 3}
+  swordSprite: {fileID: 21300000, guid: 341557a7bf8a5804c9ba2cdd73e79083, type: 3}
+  speedPotionSprite: {fileID: 21300000, guid: cf4901b74c119894e99a8e4ea52c87c4, type: 3}
+  bookSprite: {fileID: 21300000, guid: fd0956b32122679439fa5c053a3d1716, type: 3}
+  potionSprite: {fileID: 21300000, guid: 89f5162dba18cd0469d91b2c582d3a20, type: 3}
+  questSprite: {fileID: 21300000, guid: 2d5a0fdb69772354c9247021ddf42711, type: 3}
+  systemSprite: {fileID: 21300000, guid: 47a6c19e089f42145a3c2351bfcea162, type: 3}

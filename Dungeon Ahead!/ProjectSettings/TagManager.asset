@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Chest
+  - DialogueBox
+  - TextDisplay
+  - HealthBar
+  - EnergyBar
+  - InventoryUI
+  - ContinueButtonDialogue
+  - QuestWindow
+  - Notification
+  - QuestWindow_Title
+  - QuestWindow_Description
+  - Tooltip
+  - CM VCam
+  - TextWindow
+  - QuestWindow_Reward1
+  - QuestWindow_Reward2
+  - TransitionPanel
+  - PauseMenu
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - Map
+  - Obstacle
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Tilemap
+    uniqueID: 1113842055
+    locked: 0
+  - name: Objects
+    uniqueID: 3441686807
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 4045965537
+    locked: 0
+  - name: UpperLayer
+    uniqueID: 3042089035
+    locked: 0

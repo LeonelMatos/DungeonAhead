@@ -1,0 +1,248 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor.SceneManagement;
+
+public class Player : MonoBehaviour
+{
+    [SerializeField] public InventoryUI inventoryUI;
+    private PlayerStats playerStats;
+    public Effects effects;
+    public PlayerControls playerControls;
+    private PlayerMovement playerMovement;
+    [HideInInspector]
+    public KeyCode interact;
+    [HideInInspector]
+    public KeyCode runKey;
+    [HideInInspector]
+    public KeyCode invLog;
+    [HideInInspector]
+    public KeyCode healthDebug;
+    [HideInInspector]
+    public KeyCode openInv0;
+    [HideInInspector]
+    public KeyCode openInv1;
+
+    public Inventory inventory; //Update: private -> public (for QuestGoal reference)
+    public GameObject npc;
+    public Tooltip windowTooltip;
+    public GameObject textWindow;
+
+    public VectorValue startingPosition;
+
+    private void Awake()
+    {
+        inventoryUI.gameObject.SetActive(true);
+        inventoryUI.SetPlayer(this);//Update: Start ->> Awake
+        playerStats = GetComponent<PlayerStats>();
+        playerMovement = GetComponent<PlayerMovement>();
+
+        interact = playerControls.Interact;
+        runKey = playerControls.RunKey;
+        openInv0 = playerControls.OpenInv0;
+        openInv1 = playerControls.OpenInv1;
+        invLog = playerControls.InvLog;
+        healthDebug = playerControls.HealthDebug;
+    }
+
+    public Vector2 GetPosition()
+    {
+        Vector2 playerPos;
+        return playerPos = Player.FindObjectOfType<Player>().gameObject.GetComponent<Transform>().position;
+    }
+
+    public void GetReference(Tooltip tooltip)
+    {
+        windowTooltip = tooltip;
+    }
+
+    private void Start()
+    {
+        inventory = new Inventory(UseItem);
+        inventoryUI.SetInventory(inventory);
+        inventory.GetPlayer(gameObject);
+        effects = GetComponent<Effects>();
+        effects.SetReferences();
+
+        textWindow = GameObject.FindGameObjectWithTag("TextWindow");
+
+        StartNewScene();
+    }
+
+    private void StartNewScene()
+    {
+        transform.position = startingPosition.initialValue;
+
+        playerStats.maxHealth = startingPosition.maxHealth;
+        playerStats.health = startingPosition.health;
+        playerStats.maxEnergy = startingPosition.MaxEnergy;
+        playerStats.energy = startingPosition.energy;
+        playerStats.questList = startingPosition.storedQuests;
+
+        effects.activeEffects = startingPosition.activeEffects;
+        effects.timeCounter = startingPosition.timeCounter;
+
+        if(effects.activeEffects.Count != 0)
+        {
+            int count = effects.activeEffects.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Debug.Log("Effect: " + effects.activeEffects[0] + " time: " + effects.timeCounter[0]);
+                int effect = effects.activeEffects[0];
+                effects.activeEffects.RemoveAt(0);
+                effects.time = effects.maxTime - effects.timeCounter[0] - 1;
+                effects.timeCounter.RemoveAt(0);
+                effects.SetEffect(effect);
+            }
+        }
+    }
+
+    //Grab dropped items
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
+        if (itemWorld != null)
+        {
+            //Touching item
+            inventory.AddItem(itemWorld.GetItem());
+            //To LevelData: sets item to isDestroyed = true
+            itemWorld.GetItem().isDestroyed = true;
+            //LevelData save goes here
+            itemWorld.DestroySelf();
+        }
+    }
+
+    void Update()
+    {
+        //To update : switch (perhaps?! idk bruh, but thats alotof ifs)
+        if (Input.GetKeyDown(invLog))  //Check items in inventory @ Inventory script
+        {
+            inventory.InventoryItemsLog();
+        }
+        if (Input.GetKeyDown(openInv0) || Input.GetKeyDown(openInv1))
+        {
+            inventoryUI.OpenInventory();
+            windowTooltip.HideTooltip_Public();           
+        }
+        if (Input.GetKeyDown(healthDebug))
+        {
+            playerStats.TakeDamage(10);
+            playerStats.TakeEnergy(10);
+        }
+        if (Input.GetKeyDown(playerControls.Pause))
+        {
+            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().PauseGame();
+        }
+
+        //To update!
+        /*if (Input.GetKeyDown("p"))
+        {
+            npc.SetActive(true);
+        }*/
+    }
+
+    private void RemoveUsedItem(Item.ItemType ItemType)
+    {
+        inventory.RemoveItem(new Item { itemType = ItemType, amount = 1 });
+        windowTooltip.HideTooltip_Public();
+        //Debug.Log("Removed " + ItemType);
+    }
+
+    private void SetTimeEffect(int time)    //May be useless, idk (keep it to be safe=)
+    {
+        StartCoroutine(UsageTimeEffect(time));
+    }
+
+    IEnumerator UsageTimeEffect(int time)   //To add visual output
+    {
+        Debug.Log("Started effect");
+        yield return new WaitForSeconds(time);  //May be useless, idk (keep it to be safe=)
+        Debug.Log("Ended effect");
+    }
+
+    private void UseItem(Item item)     //Use Items utilities here!
+    {
+        windowTooltip.HideTooltip_Public();
+        switch (item.itemType)
+        {
+            case Item.ItemType.HealthPotion:
+                //Debug.Log("Used HealthPotion");
+                RemoveUsedItem(Item.ItemType.HealthPotion);
+                playerStats.TakeDamage(-20);
+                break;
+            case Item.ItemType.EnergyPotion:
+                //Debug.Log("Used EnergyPotion");
+                RemoveUsedItem(Item.ItemType.EnergyPotion);
+                playerStats.TakeEnergy(-20);
+                break;
+            case Item.ItemType.Medkit:
+                //Debug.Log("Used Medkit");
+                RemoveUsedItem(Item.ItemType.Medkit);
+                RemoveUsedItem2(item);
+                playerStats.TakeDamage(-50);
+                break;
+            case Item.ItemType.NightVisionPotion:
+                //Debug.Log("Used NightVisionPotion");
+                RemoveUsedItem(Item.ItemType.NightVisionPotion);
+                effects.SetEffect(1);   //Default: 180 (3 min.)
+                break;
+            case Item.ItemType.Milk:
+                //Debug.Log("Used Milk");
+                RemoveUsedItem(Item.ItemType.Milk);
+                effects.UseMilk();
+                break;
+            case Item.ItemType.SpeedPotion:
+                //Debug.Log("Used SpeedPotion");
+                RemoveUsedItem(Item.ItemType.SpeedPotion);
+                effects.SetEffect(2);    //Default: 180 (3 min.)
+                break;
+            case Item.ItemType.Book:   //BOOK
+                textWindow.GetComponent<TextWindow>().OpenTextWindow(item, inventoryUI);
+                break;
+        }
+    }
+
+    private void RemoveUsedItem2(Item item)
+    {
+        windowTooltip.HideTooltip_Public();
+        inventory.RemoveItem(item);
+    }
+
+    //Save/Load test debug
+    public void SaveGame ()
+    {
+        SaveSystem.SaveGame(this);
+    }
+
+    public void LoadGame ()
+    {
+        GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionStart());
+       
+        PlayerData data = SaveSystem.LoadGame();
+
+        //TODO (I think it works, idk never tested... It just works~)
+        if (gameObject.scene.name != data.loadedLevel)
+        {
+            EditorSceneManager.LoadScene(data.loadedLevel);
+        }
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        transform.position = position;
+
+        inventory.itemList = data.storedInventory;
+        playerStats.maxHealth = data.maxHealth;
+        playerStats.health = data.health;
+        playerStats.maxEnergy = data.maxEnergy;
+        playerStats.energy = data.energy;
+
+        playerStats.questList = data.storedQuests;
+
+        effects.activeEffects = data.activeEffects;
+        effects.timeCounter = data.timeCounter;
+
+        GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionEnd());
+    }
+}
