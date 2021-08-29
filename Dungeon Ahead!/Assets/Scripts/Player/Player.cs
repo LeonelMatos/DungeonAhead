@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -223,7 +223,7 @@ public class Player : MonoBehaviour
         //TODO (I think it works, idk never tested... It just works~)
         if (gameObject.scene.name != data.loadedLevel)
         {
-            EditorSceneManager.LoadScene(data.loadedLevel);
+            SceneManager.LoadScene(data.loadedLevel);
         }
 
         Vector3 position;
