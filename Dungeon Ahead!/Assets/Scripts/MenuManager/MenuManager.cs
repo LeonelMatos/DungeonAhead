@@ -63,11 +63,25 @@ public class MenuManager : MonoBehaviour
         File.Delete(path);
     }
 
-    [ContextMenu("Open SaveData")]
+    [ContextMenu("Clear Save File")]
+    public void ClearSavDat()
+    {
+        string path = Application.persistentDataPath + "/save.bruh";
+
+        File.Delete(path);
+    }
+
+    [ContextMenu("Open SaveData MAIN")]
     public void OpenSaveData()
     {
         string path = Application.persistentDataPath;
-        
+    
         System.Diagnostics.Process.Start("explorer.exe", @"C:\Users\Utilizador\AppData\LocalLow\Leonel Matos\Dungeon Ahead!");
+    }
+
+    [ContextMenu("Open SaveDataLAPTOP")]
+    public void OpenSaveDataLaptop()
+    {
+        System.Diagnostics.Process.Start("explorer.exe", @"C:\Users\leone\AppData\LocalLow\Leonel Matos\Dungeon Ahead!");
     }
 }
