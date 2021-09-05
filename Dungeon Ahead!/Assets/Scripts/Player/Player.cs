@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 
     public VectorValue startingPosition;
 
+    private bool onLoadGameSave;
+
     private void Awake()
     {
         inventoryUI.gameObject.SetActive(true);
@@ -43,6 +45,9 @@ public class Player : MonoBehaviour
         openInv1 = playerControls.OpenInv1;
         invLog = playerControls.InvLog;
         healthDebug = playerControls.HealthDebug;
+
+        //OnLoadGameSave
+        onLoadGameSave = 
     }
 
     public Vector2 GetPosition()
@@ -220,17 +225,27 @@ public class Player : MonoBehaviour
        
         PlayerData data = SaveSystem.LoadGame();
 
-        //TODO (I think it works, idk never tested... It just works~)
+        //TODO
         if (gameObject.scene.name != data.loadedLevel)
         {
             SceneManager.LoadScene(data.loadedLevel);
+            Debug.Log("Loaded " + gameObject.scene.name);
         }
 
+        LoadSaveGameData();
+        GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionEnd());
+
+    }
+
+    private void LoadSaveGameData()
+    {
+        Debug.Log($"{data.position[0]}\n{data.position[1]}");
         Vector3 position;
         position.x = data.position[0];
         position.y = data.position[1];
         position.z = data.position[2];
         transform.position = position;
+        Debug.Log($"{transform.position.x}\n{transform.position.y}");
 
         inventory.itemList = data.storedInventory;
         playerStats.maxHealth = data.maxHealth;
@@ -243,6 +258,6 @@ public class Player : MonoBehaviour
         effects.activeEffects = data.activeEffects;
         effects.timeCounter = data.timeCounter;
 
-        GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionEnd());
+        
     }
 }
