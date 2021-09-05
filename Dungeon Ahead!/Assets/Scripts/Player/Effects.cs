@@ -123,7 +123,7 @@ public class Effects: MonoBehaviour
 
     public void UseRandomPotion() //Random Potion -20 nrg //Effect 0
     {
-        int rndm = Random.Range(1, 2);  /////////////Add number count of potions here!
+        int rndm = Random.Range(1, 3);  /////////////Add number count of potions here!
         Debug.Log("RandomPotion: " + rndm);
         SetEffect(rndm);
     }
