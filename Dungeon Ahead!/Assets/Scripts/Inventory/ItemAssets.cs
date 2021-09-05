@@ -22,6 +22,7 @@ public class ItemAssets : MonoBehaviour
     public Sprite swordSprite;
     public Sprite speedPotionSprite;
     public Sprite bookSprite;
+    public Sprite randomPotionSprite;
 
 
     [Space(10)]

@@ -53,6 +53,7 @@ MonoBehaviour:
   swordSprite: {fileID: 21300000, guid: 341557a7bf8a5804c9ba2cdd73e79083, type: 3}
   speedPotionSprite: {fileID: 21300000, guid: cf4901b74c119894e99a8e4ea52c87c4, type: 3}
   bookSprite: {fileID: 21300000, guid: fd0956b32122679439fa5c053a3d1716, type: 3}
+  randomPotionSprite: {fileID: 21300000, guid: 755714a410c451c4ab65005c5dcf8c86, type: 3}
   potionSprite: {fileID: 21300000, guid: 89f5162dba18cd0469d91b2c582d3a20, type: 3}
   questSprite: {fileID: 21300000, guid: 2d5a0fdb69772354c9247021ddf42711, type: 3}
   systemSprite: {fileID: 21300000, guid: 47a6c19e089f42145a3c2351bfcea162, type: 3}

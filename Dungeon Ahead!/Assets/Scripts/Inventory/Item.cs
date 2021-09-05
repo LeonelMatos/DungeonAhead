@@ -15,6 +15,7 @@ public class Item
         SpeedPotion,
         Sword,
         Book,
+        RandomPotion,
     }
 
     public ItemType itemType;
@@ -37,6 +38,7 @@ public class Item
             case ItemType.Sword:        return ItemAssets.Instance.swordSprite;
             case ItemType.SpeedPotion: return ItemAssets.Instance.speedPotionSprite;
             case ItemType.Book: return ItemAssets.Instance.bookSprite;
+            case ItemType.RandomPotion: return ItemAssets.Instance.randomPotionSprite;
         }
     }
 
@@ -54,6 +56,7 @@ public class Item
             case ItemType.Sword:        return Color.white;
             case ItemType.SpeedPotion:  return Color.green;
             case ItemType.Book:         return Color.yellow;
+            case ItemType.RandomPotion:  return Color.white;
         }
     }
 
@@ -67,6 +70,7 @@ public class Item
             case ItemType.HealthPotion:
             case ItemType.Milk:
             case ItemType.NightVisionPotion:
+            case ItemType.RandomPotion:
                 return true;            //Is stackable
             case ItemType.Medkit:
             case ItemType.Sword:

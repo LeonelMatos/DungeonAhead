@@ -23,9 +23,9 @@ public class Effects: MonoBehaviour
     private Notification notification;
     CinemachineVirtualCamera cinemachineCam;
     [Tooltip("Duration of a potion effect")]
-    public float maxTime = 10f;
+    public float maxTime = 180f;
     [HideInInspector]
-    public float time = 10f;  //Reset o Player script @ StartNewScene()
+    public float time = 180f;  //Reset o Player script @ StartNewScene()
     [HideInInspector]
     public List<float> timeCounter;
 
@@ -74,7 +74,7 @@ public class Effects: MonoBehaviour
         time = maxTime;
         StartCoroutine("TimeCounter");
     }
-    
+
     public void CancelEffect(int effect)    //Add potion here
     {
         timeCounter.RemoveAt(activeEffects.IndexOf(effect));
@@ -104,7 +104,7 @@ public class Effects: MonoBehaviour
             //Debug.Log(timeCounter[index]);
         }
     }
-
+////Milk
     public void UseMilk()
     {
         //Cancel all potions effects
@@ -119,6 +119,32 @@ public class Effects: MonoBehaviour
             CancelEffect(activeEffects[i]);
         }
         activeEffects.Clear();
+    }
+
+    public void UseRandomPotion() //Random Potion -20 nrg //Effect 0
+    {
+        int rndm = Random.Range(1, 2);  /////////////Add number count of potions here!
+        Debug.Log("RandomPotion: " + rndm);
+        SetEffect(rndm);
+    }
+
+////Camera effects
+    public IEnumerator CameraFadeOut()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            cinemachineCam.m_Lens.OrthographicSize += 0.05f;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    public IEnumerator CameraFadeIn()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            cinemachineCam.m_Lens.OrthographicSize -= 0.05f;
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     public IEnumerator UseNightVisionPotion()    //Night Vision (3:00) -5 nrg   //Effect 1
@@ -144,21 +170,4 @@ public class Effects: MonoBehaviour
         CancelEffect(2);
     }
 
-    public IEnumerator CameraFadeOut()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            cinemachineCam.m_Lens.OrthographicSize += 0.05f;
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
-
-    public IEnumerator CameraFadeIn()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            cinemachineCam.m_Lens.OrthographicSize -= 0.05f;
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
 }

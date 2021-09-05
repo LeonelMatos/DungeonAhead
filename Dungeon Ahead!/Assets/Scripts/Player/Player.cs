@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     public VectorValue startingPosition;
 
-    private bool onLoadGameSave;
+    public CheckForLoadGame checkForLoadGame;
 
     private void Awake()
     {
@@ -45,9 +45,6 @@ public class Player : MonoBehaviour
         openInv1 = playerControls.OpenInv1;
         invLog = playerControls.InvLog;
         healthDebug = playerControls.HealthDebug;
-
-        //OnLoadGameSave
-        onLoadGameSave = 
     }
 
     public Vector2 GetPosition()
@@ -72,6 +69,14 @@ public class Player : MonoBehaviour
         textWindow = GameObject.FindGameObjectWithTag("TextWindow");
 
         StartNewScene();
+
+        if(checkForLoadGame.onSaveGameEvent)
+        {
+            LoadGameSaveData();
+            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().PauseGame();
+            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().PauseGame();
+            checkForLoadGame.onSaveGameEvent = false;
+        }
     }
 
     private void StartNewScene()
@@ -204,6 +209,10 @@ public class Player : MonoBehaviour
             case Item.ItemType.Book:   //BOOK
                 textWindow.GetComponent<TextWindow>().OpenTextWindow(item, inventoryUI);
                 break;
+            case Item.ItemType.RandomPotion:
+                RemoveUsedItem(Item.ItemType.RandomPotion);
+                effects.UseRandomPotion();
+                break;
         }
     }
 
@@ -228,24 +237,25 @@ public class Player : MonoBehaviour
         //TODO
         if (gameObject.scene.name != data.loadedLevel)
         {
+            checkForLoadGame.onSaveGameEvent = true;
             SceneManager.LoadScene(data.loadedLevel);
             Debug.Log("Loaded " + gameObject.scene.name);
         }
 
-        LoadSaveGameData();
+        LoadGameSaveData();
         GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionEnd());
 
     }
 
-    private void LoadSaveGameData()
+    private void LoadGameSaveData()
     {
-        Debug.Log($"{data.position[0]}\n{data.position[1]}");
+        PlayerData data = SaveSystem.LoadGame();
+
         Vector3 position;
         position.x = data.position[0];
         position.y = data.position[1];
         position.z = data.position[2];
         transform.position = position;
-        Debug.Log($"{transform.position.x}\n{transform.position.y}");
 
         inventory.itemList = data.storedInventory;
         playerStats.maxHealth = data.maxHealth;
@@ -257,7 +267,5 @@ public class Player : MonoBehaviour
 
         effects.activeEffects = data.activeEffects;
         effects.timeCounter = data.timeCounter;
-
-        
     }
 }
