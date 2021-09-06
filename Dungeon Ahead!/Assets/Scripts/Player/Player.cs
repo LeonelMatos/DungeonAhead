@@ -189,6 +189,8 @@ public class Player : MonoBehaviour
                 RemoveUsedItem2(item);
                 playerStats.TakeDamage(-50);
                 }
+                else
+                    StartCoroutine(maxValueAnimation(GameObject.FindGameObjectWithTag("HealthBar/Icon")));
                 break;
             case Item.ItemType.NightVisionPotion:
                 //Debug.Log("Used NightVisionPotion");
@@ -253,5 +255,26 @@ public class Player : MonoBehaviour
         effects.timeCounter = data.timeCounter;
 
         GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionEnd());
+    }
+
+    //Health on max Animation
+     //Used on UseItem() at Player for visual feedback
+    public IEnumerator maxValueAnimation(GameObject image)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for(int j = 0; j < 10; j++)
+            {
+                image.transform.position += new Vector3 (0f, 0.1f, 0f);
+                yield return new WaitForSeconds(0.1f);
+            }
+            for(int j = 0; j < 10; j++)
+            {
+                image.transform.position += new Vector3 (0f, -0.1f, 0f);
+                yield return new WaitForSeconds(0.1f);
+            }
+
+        }
+        yield return null;
     }
 }
