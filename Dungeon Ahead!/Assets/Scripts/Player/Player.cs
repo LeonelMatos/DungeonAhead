@@ -167,19 +167,28 @@ public class Player : MonoBehaviour
         {
             case Item.ItemType.HealthPotion:
                 //Debug.Log("Used HealthPotion");
-                RemoveUsedItem(Item.ItemType.HealthPotion);
-                playerStats.TakeDamage(-20);
+                if(playerStats.health != playerStats.maxHealth)
+                {
+                    RemoveUsedItem(Item.ItemType.HealthPotion);
+                    playerStats.TakeDamage(-20);
+                }
                 break;
             case Item.ItemType.EnergyPotion:
                 //Debug.Log("Used EnergyPotion");
+                if(playerStats.energy != playerStats.maxEnergy)
+                {
                 RemoveUsedItem(Item.ItemType.EnergyPotion);
                 playerStats.TakeEnergy(-20);
+                }
                 break;
             case Item.ItemType.Medkit:
                 //Debug.Log("Used Medkit");
+                if(playerStats.health != playerStats.maxHealth)
+                {
                 RemoveUsedItem(Item.ItemType.Medkit);
                 RemoveUsedItem2(item);
                 playerStats.TakeDamage(-50);
+                }
                 break;
             case Item.ItemType.NightVisionPotion:
                 //Debug.Log("Used NightVisionPotion");
