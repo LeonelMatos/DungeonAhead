@@ -22,6 +22,8 @@ TagManager:
   - QuestWindow_Reward2
   - TransitionPanel
   - PauseMenu
+  - HealthBar/Icon
+  - EnergyBar/Icon
   layers:
   - Default
   - TransparentFX

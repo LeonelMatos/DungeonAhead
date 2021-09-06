@@ -23,4 +23,16 @@ public class ValueBar : MonoBehaviour
         slider.value = health;
     }
 
+    //Health on max Animation
+     //Used on UseItem() at Player for visual feedback
+    public IEnumerator maxValueAnimation(GameObject image)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Debug.Log("yes");
+
+        }
+        yield return null;
+    }
+
 }

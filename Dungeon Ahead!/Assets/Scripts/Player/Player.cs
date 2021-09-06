@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,8 +29,6 @@ public class Player : MonoBehaviour
     public GameObject textWindow;
 
     public VectorValue startingPosition;
-
-    public CheckForLoadGame checkForLoadGame;
 
     private void Awake()
     {
@@ -69,14 +67,6 @@ public class Player : MonoBehaviour
         textWindow = GameObject.FindGameObjectWithTag("TextWindow");
 
         StartNewScene();
-
-        if(checkForLoadGame.onSaveGameEvent)
-        {
-            LoadGameSaveData();
-            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().PauseGame();
-            GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().PauseGame();
-            checkForLoadGame.onSaveGameEvent = false;
-        }
     }
 
     private void StartNewScene()
@@ -209,10 +199,6 @@ public class Player : MonoBehaviour
             case Item.ItemType.Book:   //BOOK
                 textWindow.GetComponent<TextWindow>().OpenTextWindow(item, inventoryUI);
                 break;
-            case Item.ItemType.RandomPotion:
-                RemoveUsedItem(Item.ItemType.RandomPotion);
-                effects.UseRandomPotion();
-                break;
         }
     }
 
@@ -234,22 +220,11 @@ public class Player : MonoBehaviour
        
         PlayerData data = SaveSystem.LoadGame();
 
-        //TODO
+        //TODO (I think it works, idk never tested... It just works~)
         if (gameObject.scene.name != data.loadedLevel)
         {
-            checkForLoadGame.onSaveGameEvent = true;
             SceneManager.LoadScene(data.loadedLevel);
-            Debug.Log("Loaded " + gameObject.scene.name);
         }
-
-        LoadGameSaveData();
-        GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionEnd());
-
-    }
-
-    private void LoadGameSaveData()
-    {
-        PlayerData data = SaveSystem.LoadGame();
 
         Vector3 position;
         position.x = data.position[0];
@@ -267,5 +242,7 @@ public class Player : MonoBehaviour
 
         effects.activeEffects = data.activeEffects;
         effects.timeCounter = data.timeCounter;
+
+        GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionEnd());
     }
 }

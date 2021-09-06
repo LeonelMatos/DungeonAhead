@@ -3146,7 +3146,7 @@ GameObject:
   - component: {fileID: 2986340392424368845}
   m_Layer: 5
   m_Name: EnergyIcon
-  m_TagString: Untagged
+  m_TagString: EnergyBar/Icon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4622,7 +4622,7 @@ GameObject:
   - component: {fileID: 2496692258846137711}
   m_Layer: 5
   m_Name: HeartIcon
-  m_TagString: Untagged
+  m_TagString: HealthBar/Icon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
