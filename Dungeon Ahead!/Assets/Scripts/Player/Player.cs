@@ -172,6 +172,8 @@ public class Player : MonoBehaviour
                     RemoveUsedItem(Item.ItemType.HealthPotion);
                     playerStats.TakeDamage(-20);
                 }
+                else
+                    StartCoroutine(maxValueAnimation(GameObject.FindGameObjectWithTag("HealthBar/Icon")));  //Full bar anim.
                 break;
             case Item.ItemType.EnergyPotion:
                 //Debug.Log("Used EnergyPotion");
@@ -180,17 +182,21 @@ public class Player : MonoBehaviour
                 RemoveUsedItem(Item.ItemType.EnergyPotion);
                 playerStats.TakeEnergy(-20);
                 }
+                else
+                    StartCoroutine(maxValueAnimation(GameObject.FindGameObjectWithTag("EnergyBar/Icon")));
                 break;
             case Item.ItemType.Medkit:
                 //Debug.Log("Used Medkit");
-                if(playerStats.health != playerStats.maxHealth)
+                if(playerStats.health < playerStats.maxHealth)
                 {
                 RemoveUsedItem(Item.ItemType.Medkit);
                 RemoveUsedItem2(item);
                 playerStats.TakeDamage(-50);
                 }
                 else
+                {
                     StartCoroutine(maxValueAnimation(GameObject.FindGameObjectWithTag("HealthBar/Icon")));
+                }
                 break;
             case Item.ItemType.NightVisionPotion:
                 //Debug.Log("Used NightVisionPotion");
@@ -265,15 +271,14 @@ public class Player : MonoBehaviour
         {
             for(int j = 0; j < 10; j++)
             {
-                image.transform.position += new Vector3 (0f, 0.1f, 0f);
-                yield return new WaitForSeconds(0.1f);
+                image.transform.localScale += new Vector3 (0.03f, 0.03f, 0f);
+                yield return new WaitForSeconds(0.01f);
             }
             for(int j = 0; j < 10; j++)
             {
-                image.transform.position += new Vector3 (0f, -0.1f, 0f);
-                yield return new WaitForSeconds(0.1f);
+                image.transform.localScale += new Vector3 (-0.03f, -0.03f, 0f);
+                yield return new WaitForSeconds(0.01f);
             }
-
         }
         yield return null;
     }

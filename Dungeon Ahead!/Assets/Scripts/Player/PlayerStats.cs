@@ -64,7 +64,8 @@ public class PlayerStats : MonoBehaviour
     public void SetMaxHealth(int health)
     {
         healthSlider.maxValue = health;
-        healthSlider.value = health;
+        //healthSlider.value = health;  //NOTE: idk why this was here,
+                                        // it breaks the slider UI.
     }
 
     public void SetHealth(int health)
