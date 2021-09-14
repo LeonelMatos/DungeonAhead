@@ -64,9 +64,9 @@ public class PauseMenu : MonoBehaviour
 
     private IEnumerator SaveAndQuit()
     {
-        yield return new WaitForSecondsRealtime(1); //Time until the game quits
+        yield return new WaitForSecondsRealtime(1); //Time until the game quits.
         Debug.Log("Quitted game");
-        Application.Exit();
+        Application.Quit();
         
     }
 
