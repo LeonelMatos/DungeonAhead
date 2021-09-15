@@ -19,6 +19,8 @@ public class DialogueManager : MonoBehaviour
 
     private Dialogue definedDialogue;
 
+    private Player player;
+
     private void Awake() {
         
     }
@@ -26,7 +28,16 @@ public class DialogueManager : MonoBehaviour
     void Start() {
         senteces = new Queue<string>();
         dialogueBox.SetActive(true);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
 
+    private void Update()
+    {
+        //Keyboard skip text keys.
+        if (Input.GetKeyDown(player.playerControls.DialogueSkip) || Input.GetKeyDown(KeyCode.Return))
+        {
+            DisplayNextSentence();
+        }
     }
 
     public void StartDialogue (Dialogue dialogue)

@@ -19,3 +19,4 @@ MonoBehaviour:
   Pause: 27
   HealthDebug: 282
   InvLog: 283
+  DialogueSkip: 275

@@ -9,10 +9,8 @@ public class PlayerControls : ScriptableObject
     public KeyCode RunKey;
     public KeyCode OpenInv0;
     public KeyCode OpenInv1;
-
     public KeyCode Pause;
     public KeyCode HealthDebug;
     public KeyCode InvLog;
-
-
+    public KeyCode DialogueSkip;
 }
