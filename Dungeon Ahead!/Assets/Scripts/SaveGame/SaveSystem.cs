@@ -48,7 +48,7 @@ public static class SaveSystem
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Open);
 
-        Debug.Log("fine here");
+        //Debug.Log("fine here");
         LevelData levelData = formatter.Deserialize(stream) as LevelData;
         
         for (int i = 0; i < 100; i++)
