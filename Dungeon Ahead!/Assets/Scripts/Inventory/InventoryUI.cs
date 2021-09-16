@@ -114,7 +114,7 @@ public class InventoryUI : MonoBehaviour
                 //Drop Item
                 //Debug.Log("Right button");
                 //Debug.LogWarning("Removed item: " + item.itemType);
-                Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
+                Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount, itemText = item.itemText };
                 inventory.RemoveItem(item);
                 ItemWorld.DropItem(player.GetPosition(), duplicateItem);
                 windowTooltip.HideTooltip_Public();
