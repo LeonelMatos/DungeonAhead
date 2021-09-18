@@ -59,7 +59,7 @@ public class DropBox : MonoBehaviour
                     Debug.Log("(no loot) Generating loot...");
                     for (int i = 0; i <= random; i++)
                     {
-                        loot.Add(new Item { itemType = GenerateLoot(Random.Range(1, 9)), amount = 1 });
+                        loot.Add(new Item { itemType = GenerateLoot(Random.Range(1, 9)), amount = 1, itemText = new ItemText()});
                     }
                 }
 

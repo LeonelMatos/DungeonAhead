@@ -79,7 +79,7 @@ public class MenuManager : MonoBehaviour
         System.Diagnostics.Process.Start("explorer.exe", @"C:\Users\Utilizador\AppData\LocalLow\Leonel Matos\Dungeon Ahead!");
     }
 
-    [ContextMenu("Open SaveDataLAPTOP")]
+    [ContextMenu("Open SaveData LAPTOP")]
     public void OpenSaveDataLaptop()
     {
         System.Diagnostics.Process.Start("explorer.exe", @"C:\Users\leone\AppData\LocalLow\Leonel Matos\Dungeon Ahead!");

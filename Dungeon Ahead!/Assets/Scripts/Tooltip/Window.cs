@@ -11,18 +11,19 @@ public class Window : MonoBehaviour
     public void SetTooltipWindow (RectTransform itemSlotRectTransform, Item item)
     {
         itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () => Tooltip.ShowTooltip_Static(item.itemType.ToString());
-        itemSlotRectTransform.GetComponent<Button_UI>().MouseOutOnceFunc = () => Tooltip.HideTooltip_Static();
         
-        //TODO: Change between itemType and item title if exists
-        if (/*item.itemText.title != null*/item.itemType == Item.ItemType.Book)
+        /*if (item.itemType == Item.ItemType.Book)
         {
+            itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () => Tooltip.ShowTooltip_Static(item.itemText.title);
+        }*/
+        ///////////TODO: FIX THIS MESS... IF I KNOW HOW......
+        if (item.itemText.title != "" || item.itemText.title != " " || item.itemText.title != null || item.itemText != null || item.itemText.title != "Null")  //Check if item has title
+        {
+            Debug.Log(item.itemText.title);
             itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () => Tooltip.ShowTooltip_Static(item.itemText.title);
         }
 
-        if (item.itemText.title != "")  //Check if item has title
-        {
-            itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () => Tooltip.ShowTooltip_Static(item.itemText.title);
-        }
+        itemSlotRectTransform.GetComponent<Button_UI>().MouseOutOnceFunc = () => Tooltip.HideTooltip_Static();
     }
 
     //To fix
