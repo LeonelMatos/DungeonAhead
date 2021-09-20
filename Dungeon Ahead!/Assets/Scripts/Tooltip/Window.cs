@@ -12,16 +12,8 @@ public class Window : MonoBehaviour
     {
         itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () => Tooltip.ShowTooltip_Static(item.itemType.ToString());
         
-        /*if (item.itemType == Item.ItemType.Book)
-        {
+        if (item.itemText.title != "")  //Check if item has title
             itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () => Tooltip.ShowTooltip_Static(item.itemText.title);
-        }*/
-        ///////////TODO: FIX THIS MESS... IF I KNOW HOW......
-        if (item.itemText.title != "" || item.itemText.title != " " || item.itemText.title != null || item.itemText != null || item.itemText.title != "Null")  //Check if item has title
-        {
-            Debug.Log(item.itemText.title);
-            itemSlotRectTransform.GetComponent<Button_UI>().MouseOverFunc = () => Tooltip.ShowTooltip_Static(item.itemText.title);
-        }
 
         itemSlotRectTransform.GetComponent<Button_UI>().MouseOutOnceFunc = () => Tooltip.HideTooltip_Static();
     }

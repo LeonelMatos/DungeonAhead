@@ -6,6 +6,6 @@ using UnityEngine;
 public class ItemText
 {
     public string title;
-    [TextArea(20, 10)]
+    [TextArea(10, 10)]
     public string text;
 }
