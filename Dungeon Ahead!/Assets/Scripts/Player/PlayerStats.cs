@@ -75,7 +75,7 @@ public class PlayerStats : MonoBehaviour
     public void SetMaxEnergy(int energy)
     {
         energySlider.maxValue = energy;
-        energySlider.value = health;
+        //energySlider.value = health;  Why do I feel that when the UI breaks it's always you two?
     }
 
     public void SetEnergy(int energy)

@@ -164,6 +164,7 @@ public class Effects: MonoBehaviour
         activeEffects.Add(2);
 
         notification.StartNotification("Speed Boost started. 3:00", "potion");
+        GetComponent<PlayerStats>().TakeEnergy(5);
         StartCoroutine("CameraFadeOut");
         GetComponent<PlayerMovement>().runSpeed *= 1.5f;
         yield return new WaitForSeconds(time);

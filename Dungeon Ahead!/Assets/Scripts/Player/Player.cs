@@ -216,6 +216,10 @@ public class Player : MonoBehaviour
             case Item.ItemType.Book:   //BOOK
                 textWindow.GetComponent<TextWindow>().OpenTextWindow(item, inventoryUI);
                 break;
+            case Item.ItemType.RandomPotion:
+                effects.UseRandomPotion();
+                RemoveUsedItem(Item.ItemType.RandomPotion);
+                break;
         }
     }
 
