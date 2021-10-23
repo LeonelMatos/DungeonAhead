@@ -46,11 +46,24 @@ public static class SaveSystem
         string path = Application.persistentDataPath + "/lvldat.bruh";
 
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream(path, FileMode.OpenOrCreate); //Open->opnOrCreat
+        FileStream stream = new FileStream(path, FileMode.OpenOrCreate); //Open->opnOrCreate
 
         LevelData levelData = formatter.Deserialize(stream) as LevelData;
 
-        Debug.Log(levelData.sceneList.Count);
+        ///// TESTING ZONE
+        Debug.Log("Updating LevelData...");
+        Debug.Log("string at file: " + levelData.test);
+        levelData.test = "Skrttt Skrttttt";
+        Debug.Log("String changed to: " + levelData.test);
+
+        formatter.Serialize(stream, levelData);
+        stream.Close();
+
+        FileStream stream1 = new FileStream(path, FileMode.OpenOrCreate);
+        LevelData savedData = formatter.Deserialize(stream1) as LevelData;
+        Debug.Log("String updated: " + savedData.test);
+
+        ///// END OF TESTING ZONE
 
         //ADD ITEM HERE                 /////////To be continued (this part... agains)
         for (int i = 0; i <= levelData.sceneList.Count; i++)    //Search for scene

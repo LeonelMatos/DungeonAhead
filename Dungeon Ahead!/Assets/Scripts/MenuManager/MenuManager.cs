@@ -27,12 +27,14 @@ public class MenuManager : MonoBehaviour
 
         if (File.Exists(path))
             Debug.Log("lvldat.bruh already exists.");
-        else 
+        else
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.OpenOrCreate);
             
             LevelData levelData = new LevelData(gameObject, new Item {itemType = Item.ItemType.Coin, amount = 1, isDestroyed = true});
+
+            //levelData.test = "Hello World!";
             
             formatter.Serialize(stream, levelData);
             stream.Close();

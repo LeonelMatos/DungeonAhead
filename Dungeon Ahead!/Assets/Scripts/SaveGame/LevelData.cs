@@ -14,4 +14,6 @@ public class LevelData
 
     //LevelData created at MenuManager.
 
+    public string test;
+
 }
