@@ -41,6 +41,9 @@ public static class SaveSystem
         
     }
     //////////// Level Data ////////////
+    //Ah, yes... my old enemy. So we finally meet
+    //This code is stupid. I want to kill it, but at this point killing it with fire will destroy the whole game.
+    //So this stays, inactive... a memory of past struggle and effort.
     public static void SaveLevelData(GameObject player, Item item)  //To be continued
     {
         string path = Application.persistentDataPath + "/lvldat.bruh";
