@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class LevelData
+[CreateAssetMenu]
+public class LevelData : ScriptableObject
 {
-    public LevelData (GameObject player, Item item)
-    {
-        //Code moved to SaveSystem.SaveLevelData()
-    }
-
     public List<SceneItemList> sceneList;
 
     //LevelData created at MenuManager.
+    //Useless tho
+}
 
-    public string test;
+public class SceneItemList
+{
+    public string sceneName;
 
+    public List<Item> itemList;
+
+    public SceneItemList(GameObject player)
+    {
+        sceneName = player.scene.name;
+    }
 }
