@@ -23,7 +23,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        string path = Application.persistentDataPath + "/lvldat.bruh";
+        /*string path = Application.persistentDataPath + "/lvldat.bruh";
 
         if (File.Exists(path))
             Debug.Log("lvldat.bruh already exists.");
@@ -41,7 +41,8 @@ public class MenuManager : MonoBehaviour
 
             Debug.Log($"New levelData created at {path}");
         }
-        
+        */
+
         SaveSystem.SaveLevelData(gameObject, new Item {itemType = Item.ItemType.Coin, amount = 1, isDestroyed = true});
     }
 

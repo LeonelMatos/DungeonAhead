@@ -41,6 +41,9 @@ public static class SaveSystem
         
     }
     //////////// Level Data ////////////
+    //Ah, yes... my old enemy. So we finally meet
+    //This code is stupid. I want to kill it, but at this point killing it with fire will destroy the whole game.
+    //So this stays, inactive... a memory of past struggle and effort.
     public static void SaveLevelData(GameObject player, Item item)  //To be continued
     {
         string path = Application.persistentDataPath + "/lvldat.bruh";
@@ -49,21 +52,6 @@ public static class SaveSystem
         FileStream stream = new FileStream(path, FileMode.OpenOrCreate); //Open->opnOrCreate
 
         LevelData levelData = formatter.Deserialize(stream) as LevelData;
-
-        ///// TESTING ZONE
-        Debug.Log("Updating LevelData...");
-        Debug.Log("string at file: " + levelData.test);
-        levelData.test = "Skrttt Skrttttt";
-        Debug.Log("String changed to: " + levelData.test);
-
-        formatter.Serialize(stream, levelData);
-        stream.Close();
-
-        FileStream stream1 = new FileStream(path, FileMode.OpenOrCreate);
-        LevelData savedData = formatter.Deserialize(stream1) as LevelData;
-        Debug.Log("String updated: " + savedData.test);
-
-        ///// END OF TESTING ZONE
 
         //ADD ITEM HERE                 /////////To be continued (this part... agains)
         for (int i = 0; i <= levelData.sceneList.Count; i++)    //Search for scene
