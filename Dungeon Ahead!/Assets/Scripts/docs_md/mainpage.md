@@ -1,9 +1,8 @@
-\mainpage Dungeon Ahead! HOME
+\mainpage Main Page
 
 # Introduction
 
-\todo Docs not done.
-Might want to add a homepage here in the future
+The Dungeon Ahead! documentation at version 0.1.3
 
 ---
 
