@@ -18,11 +18,16 @@ public class SceneTransition : MonoBehaviour
     private PlayerStats playerStats;
     private Effects effects;
 
+    private LevelData savedLevelData;
+
     private void Start()
     {
         StartCoroutine("SceneLoadingEnd");
     }
 
+    /**Activated when entering the trigger, saves all player's data to the playerStorage (VectorValue).
+    \arg Collider2D other (SceneTransition's collider that triggers the function)
+    */
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player") && !other.isTrigger)
@@ -45,6 +50,10 @@ public class SceneTransition : MonoBehaviour
             //Effects
             playerStorage.activeEffects = effects.activeEffects;
             playerStorage.timeCounter = effects.timeCounter;
+            //LevelData
+            updateLevelData();
+
+
             //LoadScene
             transitionPanel = GameObject.FindGameObjectWithTag("TransitionPanel").GetComponent<Image>();
             StartCoroutine("SceneLoadingStart");
@@ -66,7 +75,7 @@ public class SceneTransition : MonoBehaviour
         playerStorage.timeCounter.Clear();
     }
 
-    //Transition
+    ///Sets and starts the transition while changing scenes.
     public IEnumerator SceneLoadingStart()
     {
         transitionPanel.transform.SetAsLastSibling();
@@ -86,6 +95,7 @@ public class SceneTransition : MonoBehaviour
         }*/
     }
 
+    ///Ends the transition after changing scenes.
     public IEnumerator SceneLoadingEnd()
     {
         transitionPanel = GameObject.FindGameObjectWithTag("TransitionPanel").GetComponent<Image>();
@@ -97,5 +107,26 @@ public class SceneTransition : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
         transitionPanel.transform.SetAsFirstSibling();
+    }
+
+    /** 
+
+    */
+    public void updateLevelData()
+    {
+        bool foundActiveScene = false;
+
+        //Checks if current scene in on the sceneList, if not, adds it.
+        for (int i = 0; i < savedLevelData.sceneList.Count; i++) {
+            if (savedLevelData.sceneList[i].sceneName == SceneManager.GetActiveScene().name)
+                foundActiveScene = true;
+        }
+
+        if (!foundActiveScene) {
+            savedLevelData.sceneList.Add(new SceneItemList {sceneName = SceneManager.GetActiveScene().name});
+            foundActiveScene = false;
+        }
+
+        //Add
     }
 }

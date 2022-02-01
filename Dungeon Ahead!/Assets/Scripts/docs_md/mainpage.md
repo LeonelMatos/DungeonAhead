@@ -1,9 +1,10 @@
 \mainpage Main Page
 
 # Introduction
-
+\emoji star
 The Dungeon Ahead! documentation at version 0.1.3
 
 ---
 
-This page was written by LeonelMatos, 19/01/2022
+\author LeonelMatos \emoji :moyai:
+\date 01/02/2022
