@@ -110,7 +110,7 @@ public class SceneTransition : MonoBehaviour
     }
 
     /** 
-
+    \todo Add isPrePlaced param to item.
     */
     public void updateLevelData()
     {
@@ -127,6 +127,6 @@ public class SceneTransition : MonoBehaviour
             foundActiveScene = false;
         }
 
-        //Add
+        //Add items
     }
 }
