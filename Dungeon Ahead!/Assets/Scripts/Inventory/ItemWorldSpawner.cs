@@ -8,7 +8,7 @@ public class ItemWorldSpawner : MonoBehaviour
 
     private void Start()
     {
-        ItemWorld.SpawnItemWorld(transform.position, item);
+        ItemWorld.SpawnItemWorld(transform.position, new Item{isPrePlaced = true, itemType = item.itemType, amount = item.amount, itemText = item.itemText, x = gameObject.transform.position.x, y = gameObject.transform.position.y});
         Destroy(gameObject);
     }
 }

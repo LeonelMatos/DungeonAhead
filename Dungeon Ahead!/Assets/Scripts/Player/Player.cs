@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public GameObject textWindow;
 
     public VectorValue startingPosition;
+    public LevelData storedLevelData;
 
     private void Awake()
     {
@@ -82,7 +83,7 @@ public class Player : MonoBehaviour
         effects.activeEffects = startingPosition.activeEffects;
         effects.timeCounter = startingPosition.timeCounter;
 
-        if(effects.activeEffects.Count != 0)
+        if (effects.activeEffects.Count != 0)
         {
             int count = effects.activeEffects.Count;
             for (int i = 0; i < count; i++)
@@ -97,24 +98,56 @@ public class Player : MonoBehaviour
         }
     }
 
-    //Grab dropped items
+    ///Grab dropped items
     private void OnTriggerEnter2D(Collider2D collider)
     {
         ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
-        if (itemWorld != null)
+        if (itemWorld == null) return;
+
+        //Touching item
+        inventory.AddItem(itemWorld.GetItem());
+        ///\todo Review this section of code.
+        //If the player grabs a prePlaced item, it will add it to the lvlDat that will later check if such item
+        //was prePlaced so it knows not to place it again because the player already grabbed it.
+        if (itemWorld.GetItem().isPrePlaced)
         {
-            //Touching item
-            inventory.AddItem(itemWorld.GetItem());
-            //To LevelData: sets item to isDestroyed = true
-            itemWorld.GetItem().isDestroyed = true;
-            //LevelData save goes here
-            itemWorld.DestroySelf();
+            for (int i = 0; i < storedLevelData.sceneList.Count; i++)
+            {
+                if (storedLevelData.sceneList[i].sceneName == SceneManager.GetActiveScene().name)
+                {
+                    storedLevelData.sceneList[i].itemList.Add(itemWorld.GetItem());
+                    Debug.Log($"Item {itemWorld.GetItem().itemType} saved to LevelData.");
+                    break;
+                }
+            }
         }
+        //If the player grabs a not prePlaced item, it will remove it from the lvlDat because it's not necessary anymore
+        //to save a item that was grabbed by the player.
+        else
+        {
+            for (int i = 0; i < storedLevelData.sceneList.Count; i++)
+            {
+                if (storedLevelData.sceneList[i].sceneName == SceneManager.GetActiveScene().name)
+                {
+                    storedLevelData.sceneList[i].itemList.Remove(itemWorld.GetItem());
+                    Debug.Log($"Item {itemWorld.GetItem().itemType} removed from the LevelData.");
+                    break;
+                }
+            }
+        }
+
+
+        //To LevelData: sets item to isDestroyed = true
+        ///\bug Check if this is useful or not.
+        ///\todo When user grabs item lvlDat.
+        //itemWorld.GetItem().isDestroyed = true;
+        //LevelData save goes here
+        itemWorld.DestroySelf();
     }
 
     void Update()
     {
-        //To update : switch (perhaps?! idk bruh, but thats alotof ifs)
+        ///\bug To update : switch (perhaps?! idk bruh, but thats alotof ifs)
         if (Input.GetKeyDown(invLog))  //Check items in inventory @ Inventory script
         {
             inventory.InventoryItemsLog();
@@ -122,7 +155,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(openInv0) || Input.GetKeyDown(openInv1))
         {
             inventoryUI.OpenInventory();
-            windowTooltip.HideTooltip_Public();           
+            windowTooltip.HideTooltip_Public();
         }
         if (Input.GetKeyDown(healthDebug))
         {
@@ -153,21 +186,23 @@ public class Player : MonoBehaviour
         StartCoroutine(UsageTimeEffect(time));
     }
 
-    IEnumerator UsageTimeEffect(int time)   //To add visual output
+    ///To add visual output
+    IEnumerator UsageTimeEffect(int time)
     {
         Debug.Log("Started effect");
         yield return new WaitForSeconds(time);  //May be useless, idk (keep it to be safe=)
         Debug.Log("Ended effect");
     }
 
-    private void UseItem(Item item)     //Use Items utilities here!
+    ///Use Items utilities here!
+    private void UseItem(Item item)
     {
         windowTooltip.HideTooltip_Public();
         switch (item.itemType)
         {
             case Item.ItemType.HealthPotion:
                 //Debug.Log("Used HealthPotion");
-                if(playerStats.health != playerStats.maxHealth)
+                if (playerStats.health != playerStats.maxHealth)
                 {
                     RemoveUsedItem(Item.ItemType.HealthPotion);
                     playerStats.TakeDamage(-20);
@@ -177,21 +212,21 @@ public class Player : MonoBehaviour
                 break;
             case Item.ItemType.EnergyPotion:
                 //Debug.Log("Used EnergyPotion");
-                if(playerStats.energy != playerStats.maxEnergy)
+                if (playerStats.energy != playerStats.maxEnergy)
                 {
-                RemoveUsedItem(Item.ItemType.EnergyPotion);
-                playerStats.TakeEnergy(-20);
+                    RemoveUsedItem(Item.ItemType.EnergyPotion);
+                    playerStats.TakeEnergy(-20);
                 }
                 else
                     StartCoroutine(maxValueAnimation(GameObject.FindGameObjectWithTag("EnergyBar/Icon")));
                 break;
             case Item.ItemType.Medkit:
                 //Debug.Log("Used Medkit");
-                if(playerStats.health < playerStats.maxHealth)
+                if (playerStats.health < playerStats.maxHealth)
                 {
-                RemoveUsedItem(Item.ItemType.Medkit);
-                RemoveUsedItem2(item);
-                playerStats.TakeDamage(-50);
+                    RemoveUsedItem(Item.ItemType.Medkit);
+                    RemoveUsedItem2(item);
+                    playerStats.TakeDamage(-50);
                 }
                 else
                 {
@@ -230,15 +265,15 @@ public class Player : MonoBehaviour
     }
 
     //Save/Load test debug
-    public void SaveGame ()
+    public void SaveGame()
     {
         SaveSystem.SaveGame(this);
     }
 
-    public void LoadGame ()
+    public void LoadGame()
     {
         GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionStart());
-       
+
         PlayerData data = SaveSystem.LoadGame();
 
         //TODO (I think it works, idk never tested... It just works~)
@@ -268,19 +303,19 @@ public class Player : MonoBehaviour
     }
 
     //Health on max Animation
-     //Used on UseItem() at Player for visual feedback
+    //Used on UseItem() at Player for visual feedback
     public IEnumerator maxValueAnimation(GameObject image)
     {
         for (int i = 0; i < 3; i++)
         {
-            for(int j = 0; j < 10; j++)
+            for (int j = 0; j < 10; j++)
             {
-                image.transform.localScale += new Vector3 (0.03f, 0.03f, 0f);
+                image.transform.localScale += new Vector3(0.03f, 0.03f, 0f);
                 yield return new WaitForSeconds(0.01f);
             }
-            for(int j = 0; j < 10; j++)
+            for (int j = 0; j < 10; j++)
             {
-                image.transform.localScale += new Vector3 (-0.03f, -0.03f, 0f);
+                image.transform.localScale += new Vector3(-0.03f, -0.03f, 0f);
                 yield return new WaitForSeconds(0.01f);
             }
         }

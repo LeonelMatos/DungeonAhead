@@ -30,7 +30,7 @@ public class SceneTransition : MonoBehaviour
     */
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player") && !other.isTrigger)
+        if (other.CompareTag("Player") && !other.isTrigger)
         {
             player = other.GetComponent<Player>();
             playerStats = other.GetComponent<PlayerStats>();
@@ -117,13 +117,15 @@ public class SceneTransition : MonoBehaviour
         bool foundActiveScene = false;
 
         //Checks if current scene in on the sceneList, if not, adds it.
-        for (int i = 0; i < savedLevelData.sceneList.Count; i++) {
+        for (int i = 0; i < savedLevelData.sceneList.Count; i++)
+        {
             if (savedLevelData.sceneList[i].sceneName == SceneManager.GetActiveScene().name)
                 foundActiveScene = true;
         }
 
-        if (!foundActiveScene) {
-            savedLevelData.sceneList.Add(new SceneItemList {sceneName = SceneManager.GetActiveScene().name});
+        if (!foundActiveScene)
+        {
+            savedLevelData.sceneList.Add(new SceneItemList { sceneName = SceneManager.GetActiveScene().name });
             foundActiveScene = false;
         }
 

@@ -43,7 +43,8 @@ public class MenuManager : MonoBehaviour
         }
         */
 
-        SaveSystem.SaveLevelData(gameObject, new Item {itemType = Item.ItemType.Coin, amount = 1, isDestroyed = true});
+        ///\bug This zone is useless. Clean it.  
+        //SaveSystem.SaveLevelData(gameObject, new Item {itemType = Item.ItemType.Coin, amount = 1, isDestroyed = true});
     }
 
     public void NewGame()

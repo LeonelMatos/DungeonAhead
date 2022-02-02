@@ -22,7 +22,7 @@ public class ItemWorld : MonoBehaviour
         itemWorld.GetComponent<Rigidbody2D>().AddForce(randomDir * 2f, ForceMode2D.Impulse);
 
         //To LevelData: sets item to isDestroyed = false
-        item.isDestroyed = false;
+        ///\todo Ao droppar o item adiciona-o ao levelData
         return itemWorld;
     }
     

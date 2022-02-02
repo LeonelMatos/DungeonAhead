@@ -40,6 +40,7 @@ public class Effects: MonoBehaviour
         cinemachineCam = GameObject.FindGameObjectWithTag("CM VCam").GetComponent<CinemachineVirtualCamera>();
     }
 
+    //\note Default: 180 (s) (3 min.)
     public void SetEffect(int effect)
     {
         Debug.Log("Setting effect");
