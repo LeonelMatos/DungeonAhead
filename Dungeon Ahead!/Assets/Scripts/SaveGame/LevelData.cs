@@ -28,13 +28,18 @@ public class SceneItemList
     public string sceneName;
 
     ///List of Item class that stores the items in the world scene.
-    public List<Item> itemList;
+    public List<ItemHolder> itemList;
 
-    /**
-    Runs when SceneItemList class runs. Gets active scene.
-    */
     public SceneItemList()
     {
         sceneName = SceneManager.GetActiveScene().name;
     }
+}
+
+///A class that holds the item's info and it's position, used on itemList;
+public class ItemHolder
+{
+    public Item item;
+
+    public float x, y;
 }

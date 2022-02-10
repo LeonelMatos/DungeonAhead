@@ -44,7 +44,7 @@ public static class SaveSystem
     //Ah, yes... my old enemy. So we finally meet
     //This code is stupid. I want to kill it, but at this point killing it with fire will destroy the whole game.
     //So this stays, inactive... a memory of past struggle and effort.
-    public static void SaveLevelData(GameObject player, Item item)  //To be continued
+    /*public static void SaveLevelData(GameObject player, Item item)  //To be continued
     {
         string path = Application.persistentDataPath + "/lvldat.bruh";
 
@@ -86,11 +86,11 @@ public static class SaveSystem
                 levelData.sceneList.Add(new SceneItemList(player));
                 levelData.sceneList[levelData.sceneList.Count].itemList.Add(item);
             }
-        }*/
+        }
         
         //formatter.Serialize(stream, levelData);
         stream.Close();
         Debug.Log($"Saved levelData at {path}");
-    }
+    }*/
     
 }

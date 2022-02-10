@@ -106,7 +106,6 @@ public class Player : MonoBehaviour
 
         //Touching item
         inventory.AddItem(itemWorld.GetItem());
-        ///\todo Review this section of code.
         //If the player grabs a prePlaced item, it will add it to the lvlDat that will later check if such item
         //was prePlaced so it knows not to place it again because the player already grabbed it.
         if (itemWorld.GetItem().isPrePlaced)
@@ -115,7 +114,7 @@ public class Player : MonoBehaviour
             {
                 if (storedLevelData.sceneList[i].sceneName == SceneManager.GetActiveScene().name)
                 {
-                    storedLevelData.sceneList[i].itemList.Add(itemWorld.GetItem());
+                    storedLevelData.sceneList[i].itemList.Add(new ItemHolder { item = itemWorld.GetItem(), x = collider.transform.position.x, y = collider.transform.position.y });
                     Debug.Log($"Item {itemWorld.GetItem().itemType} saved to LevelData.");
                     break;
                 }
@@ -129,9 +128,13 @@ public class Player : MonoBehaviour
             {
                 if (storedLevelData.sceneList[i].sceneName == SceneManager.GetActiveScene().name)
                 {
-                    storedLevelData.sceneList[i].itemList.Remove(itemWorld.GetItem());
-                    Debug.Log($"Item {itemWorld.GetItem().itemType} removed from the LevelData.");
-                    break;
+                    foreach (ItemHolder holder in storedLevelData.sceneList[i].itemList)
+                        if (holder.item == itemWorld.GetItem())
+                        {
+                            storedLevelData.sceneList[i].itemList.Remove(holder);
+                            Debug.Log($"Item {itemWorld.GetItem().itemType} removed from the LevelData.");
+                            break;
+                        }
                 }
             }
         }
