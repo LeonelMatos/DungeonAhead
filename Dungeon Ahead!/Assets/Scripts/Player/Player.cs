@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
         else
         {
             for (int i = 0; i < storedLevelData.sceneList.Count; i++)
-            {
+            {   
                 if (storedLevelData.sceneList[i].sceneName == SceneManager.GetActiveScene().name)
                 {
                     foreach (ItemHolder holder in storedLevelData.sceneList[i].itemList)
@@ -198,6 +198,7 @@ public class Player : MonoBehaviour
     }
 
     ///Use Items utilities here!
+    ///\todo create a new script to hold all the uses of the items.
     private void UseItem(Item item)
     {
         windowTooltip.HideTooltip_Public();

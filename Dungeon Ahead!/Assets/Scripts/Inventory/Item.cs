@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class Item
 {
-    public enum ItemType    //Insert itemType here by entry order
+    public enum ItemType    ///< Insert itemType here by entry order
     {
         Coin,
         EnergyPotion,
@@ -21,13 +21,13 @@ public class Item
     public ItemType itemType;
     public int amount;
 
-    //LevelData
-    public bool isPrePlaced = false; //Used at LevelData
-    public float x, y;
-
+    //LevelData//
+    ///Set true at ItemWorldSpawner, checked at Player when grabbing item.
+    public bool isPrePlaced = false;
+    ///Holds the text for the item, used for books, id's, special commands.
     public ItemText itemText;
 
-    public Sprite GetSprite()   //Insert sprite here
+    public Sprite GetSprite()   ///< Insert sprite here
     {
         switch (itemType)
         {
@@ -45,7 +45,7 @@ public class Item
         }
     }
 
-    public Color GetColor()     //Insert color when dropped here
+    public Color GetColor()     ///< Insert color when dropped here
     {
         switch (itemType)
         {
@@ -63,7 +63,7 @@ public class Item
         }
     }
 
-    public bool IsStackable()   //Insert other properties here
+    public bool IsStackable()   ///< Insert other properties here
     {
         switch (itemType)
         {

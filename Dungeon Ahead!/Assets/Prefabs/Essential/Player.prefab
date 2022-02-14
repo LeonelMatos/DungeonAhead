@@ -165,8 +165,8 @@ MonoBehaviour:
   npc: {fileID: 0}
   windowTooltip: {fileID: 0}
   textWindow: {fileID: 0}
-  startingPosition: {fileID: 0}
-  checkForLoadGame: {fileID: 11400000, guid: 67837d0a7f7fc114f9136d8341e062a0, type: 2}
+  startingPosition: {fileID: 11400000, guid: 3b0ca329f35604c4e8420975369990fb, type: 2}
+  storedLevelData: {fileID: 11400000, guid: 9500e315ac265584889353fc1807cbfb, type: 2}
 --- !u!114 &811704203516886463
 MonoBehaviour:
   m_ObjectHideFlags: 0
