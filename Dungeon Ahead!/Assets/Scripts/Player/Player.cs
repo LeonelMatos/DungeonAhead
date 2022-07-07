@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         inventoryUI.gameObject.SetActive(true);
-        inventoryUI.SetPlayer(this);//Update: Start ->> Awake
+        inventoryUI.SetPlayer(this);
         playerStats = GetComponent<PlayerStats>();
         playerMovement = GetComponent<PlayerMovement>();
 
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     {
         windowTooltip = tooltip;
     }
-
+    
     private void Start()
     {
         inventory = new Inventory(UseItem);
@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
+<<<<<<< Updated upstream
         if (itemWorld != null)
         {
             //Touching item
@@ -110,6 +111,13 @@ public class Player : MonoBehaviour
             //LevelData save goes here
             itemWorld.DestroySelf();
         }
+=======
+        if (itemWorld == null) return;
+
+        //Touching item
+        inventory.AddItem(itemWorld.GetItem());
+        itemWorld.DestroySelf();
+>>>>>>> Stashed changes
     }
 
     void Update()

@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public static class SaveSystem
 {
     /////////// Save Game ////////////
-    public static void SaveGame (Player player)
+    public static void SaveGame(Player player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/save.bruh";
@@ -34,6 +34,7 @@ public static class SaveSystem
 
             return data;
 
+<<<<<<< Updated upstream
         } else{
             Debug.LogError("Save file not found in " + path);
             return null;
@@ -60,15 +61,16 @@ public static class SaveSystem
             {                                                           //dá erro de instantiate. Não consigo criar um novo gameObject para guardar
                 levelData.sceneList[i].itemList.Add(item);              //uma cópia de levelData pq esse n tem MonoBehaviour
             }
+=======
+>>>>>>> Stashed changes
         }
-
-        //DEBUG TO CHECK ITEMS IN LIST
-        Debug.Log(levelData.sceneList[0].sceneName);
-        for (int i = 0; i <= levelData.sceneList[0].itemList.Count; i++)
+        else
         {
-            Debug.Log(levelData.sceneList[0].itemList[i].itemType);
+            Debug.LogError("Save file not found in " + path);
+            return null;
         }
 
+<<<<<<< Updated upstream
         /*for (int i = 0; i < 100; i++)
         {
             levelData.sceneList.Add(new SceneItemList(player));
@@ -93,4 +95,7 @@ public static class SaveSystem
         Debug.Log($"Saved levelData at {path}");
     }
     
+=======
+    }
+>>>>>>> Stashed changes
 }
