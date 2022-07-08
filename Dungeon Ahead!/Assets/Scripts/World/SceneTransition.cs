@@ -45,11 +45,6 @@ public class SceneTransition : MonoBehaviour
             //Effects
             playerStorage.activeEffects = effects.activeEffects;
             playerStorage.timeCounter = effects.timeCounter;
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
             //LoadScene
             transitionPanel = GameObject.FindGameObjectWithTag("TransitionPanel").GetComponent<Image>();
             StartCoroutine("SceneLoadingStart");
