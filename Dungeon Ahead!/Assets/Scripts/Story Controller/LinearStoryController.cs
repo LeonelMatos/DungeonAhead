@@ -7,7 +7,7 @@ public class LinearStoryController : MonoBehaviour
     [System.Serializable]
     public struct Event {
         public enum EventType {
-            ThisFunction,
+            changeVar,
             ThatFunction,
             AnotherFunction,
         }
@@ -18,5 +18,20 @@ public class LinearStoryController : MonoBehaviour
     }
 
     public List<Event> EventList = new List<Event>();
+
+    private StoryFunction storyFunction;
+
+    private void Start() {
+        
+        for (int i = 0; i < EventList.Count; i++)
+        {
+            switch (EventList[i].eventType)
+            {
+                case Event.EventType.changeVar:
+                storyFunction.ChangeVar(EventList[i].arg1, EventList[i].arg2);
+                break;
+            }
+        }
+    }
 
 }
