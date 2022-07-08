@@ -42,8 +42,6 @@ public class MenuManager : MonoBehaviour
             Debug.Log($"New levelData created at {path}");
         }
         */
-
-        SaveSystem.SaveLevelData(gameObject, new Item {itemType = Item.ItemType.Coin, amount = 1, isDestroyed = true});
     }
 
     public void NewGame()

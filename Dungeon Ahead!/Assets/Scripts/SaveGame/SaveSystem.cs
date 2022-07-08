@@ -34,68 +34,10 @@ public static class SaveSystem
 
             return data;
 
-<<<<<<< Updated upstream
         } else{
             Debug.LogError("Save file not found in " + path);
             return null;
         }
         
     }
-    //////////// Level Data ////////////
-    //Ah, yes... my old enemy. So we finally meet
-    //This code is stupid. I want to kill it, but at this point killing it with fire will destroy the whole game.
-    //So this stays, inactive... a memory of past struggle and effort.
-    public static void SaveLevelData(GameObject player, Item item)  //To be continued
-    {
-        string path = Application.persistentDataPath + "/lvldat.bruh";
-
-        BinaryFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream(path, FileMode.OpenOrCreate); //Open->opnOrCreate
-
-        LevelData levelData = formatter.Deserialize(stream) as LevelData;
-
-        //ADD ITEM HERE                 /////////To be continued (this part... agains)
-        for (int i = 0; i <= levelData.sceneList.Count; i++)    //Search for scene
-        {
-            if (player.scene.name == levelData.sceneList[i].sceneName)  //Não posso simplesmente pega no levelData pq de alguma forma
-            {                                                           //dá erro de instantiate. Não consigo criar um novo gameObject para guardar
-                levelData.sceneList[i].itemList.Add(item);              //uma cópia de levelData pq esse n tem MonoBehaviour
-            }
-=======
->>>>>>> Stashed changes
-        }
-        else
-        {
-            Debug.LogError("Save file not found in " + path);
-            return null;
-        }
-
-<<<<<<< Updated upstream
-        /*for (int i = 0; i < 100; i++)
-        {
-            levelData.sceneList.Add(new SceneItemList(player));
-            levelData.sceneList[i].sceneName = i.ToString();
-        }*/
-
-
-        /*for (int i = 0; i <= levelData.sceneList.Count; i++)
-        {
-            if (levelData.sceneList[i].sceneName == player.scene.name) {
-                levelData.sceneList[i].itemList.Add(item);
-            }
-            else
-            {
-                levelData.sceneList.Add(new SceneItemList(player));
-                levelData.sceneList[levelData.sceneList.Count].itemList.Add(item);
-            }
-        }*/
-        
-        //formatter.Serialize(stream, levelData);
-        stream.Close();
-        Debug.Log($"Saved levelData at {path}");
-    }
-    
-=======
-    }
->>>>>>> Stashed changes
 }

@@ -101,23 +101,12 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
-<<<<<<< Updated upstream
-        if (itemWorld != null)
-        {
-            //Touching item
-            inventory.AddItem(itemWorld.GetItem());
-            //To LevelData: sets item to isDestroyed = true
-            itemWorld.GetItem().isDestroyed = true;
-            //LevelData save goes here
-            itemWorld.DestroySelf();
-        }
-=======
+
         if (itemWorld == null) return;
 
         //Touching item
         inventory.AddItem(itemWorld.GetItem());
         itemWorld.DestroySelf();
->>>>>>> Stashed changes
     }
 
     void Update()
