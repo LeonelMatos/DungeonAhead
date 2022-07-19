@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class StoryFunction : MonoBehaviour
 {
-    ///Receives a variable and changes it with a given value
-    ///\arg var: variable to change value \arg val: value to change in given variable
-    public void ChangeVar (int var, int val)
-    {
-        var = val;
+
+    ///\todo Get a reference of LSC from gameobject.
+    private LinearStoryController LSC;
+
+    private void Start() {
+        
+        for (int i = 0; i < LSC.EventList.Count; i++)
+        {
+            switch (LSC.EventList[i].eventType)
+            {
+                default:
+                    Debug.Log("LSC error: Unknown function");
+                break;
+            }
+        }
     }
 }
