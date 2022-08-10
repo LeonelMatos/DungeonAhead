@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using Cinemachine;
 
 [System.Serializable]
@@ -82,7 +82,7 @@ public class Effects: MonoBehaviour
         switch (effect)
         {
             case 1: //NightVision
-                GetComponentInChildren<Light2D>().intensity -= 0.5f;
+                GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>().intensity -= 0.5f;
                 notification.StartNotification("Night Vision ended.", "potion");
                 break;
             case 2: //SpeedBoost
@@ -154,7 +154,7 @@ public class Effects: MonoBehaviour
         
         notification.StartNotification("Night Vision started. " + time + "s", "potion");
         GetComponent<PlayerStats>().TakeEnergy(5);
-        GetComponentInChildren<Light2D>().intensity += 0.5f;  //May vary depending the level
+        GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>().intensity += 0.5f;  //May vary depending the level
         yield return new WaitForSeconds(time);
         CancelEffect(1);
     }

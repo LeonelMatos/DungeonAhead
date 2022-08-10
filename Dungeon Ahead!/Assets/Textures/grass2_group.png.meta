@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -60,8 +61,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -328,6 +329,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      grass2_group_6: -2856601241736347146
+      grass2_group_3: -8400394636158728827
+      grass2_group_4: -6726765652009217023
+      grass2_group_8: 1324421085372248821
+      grass2_group_7: -4724572012690383567
+      grass2_group_1: 266503843654664885
+      grass2_group_5: -5485279883267671652
+      grass2_group_2: -7589370663419991903
+      grass2_group_0: -4221560519352840707
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

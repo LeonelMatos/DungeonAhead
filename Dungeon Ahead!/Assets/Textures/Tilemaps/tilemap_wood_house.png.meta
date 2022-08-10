@@ -24,6 +24,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -33,8 +34,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -847,6 +848,42 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      tilemap_wood_house_8: 5574005287454898458
+      tilemap_wood_house_27: -8836645284753977545
+      tilemap_wood_house_26: 5907263874521805137
+      tilemap_wood_house_2: 2471502017778516430
+      tilemap_wood_house_0: -7630160151469901741
+      tilemap_wood_house_7: 4873404098218160221
+      tilemap_wood_house_12: -5908641418603268566
+      tilemap_wood_house_10: -2130237764712913411
+      tilemap_wood_house_11: -5697889619091137794
+      tilemap_wood_house_1: 4418672277933270023
+      tilemap_wood_house_14: 5612031305866120450
+      tilemap_wood_house_15: -3142477775267740679
+      tilemap_wood_house_19: 3734994271594726194
+      tilemap_wood_house_25: -29352478645211178
+      tilemap_wood_house_18: -7314691403850757653
+      tilemap_wood_house_29: 2118343132428330991
+      tilemap_wood_house_21: 8878883644884192968
+      tilemap_wood_house_3: -2268109398528734651
+      tilemap_wood_house_31: 7158628416689560022
+      tilemap_wood_house_28: 5427531606764850009
+      tilemap_wood_house_5: 3653627930570311468
+      tilemap_wood_house_23: -5729181684970721392
+      tilemap_wood_house_30: -985679867932337517
+      tilemap_wood_house_6: 5252915235084048706
+      tilemap_wood_house_22: 6233670036541299311
+      tilemap_wood_house_9: -4334892289350116589
+      tilemap_wood_house_13: -5558295945367025292
+      tilemap_wood_house_24: -5921278133398221922
+      tilemap_wood_house_17: 8868595590973151061
+      tilemap_wood_house_32: -2314959384217890990
+      tilemap_wood_house_34: -6883457214199234317
+      tilemap_wood_house_4: 2929317114920322266
+      tilemap_wood_house_20: 689621380781303245
+      tilemap_wood_house_16: 7248876472100270548
+      tilemap_wood_house_33: -2228134540752400838
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
