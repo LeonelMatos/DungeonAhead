@@ -91,11 +91,16 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private LinearStoryController lsc;
+
     public void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
         IsRunning = false;
         
+        lsc = GameObject.FindGameObjectWithTag("LSC").GetComponent<LinearStoryController>();
+        lsc.EndOfScript();
+
     }
 
     public void CheckQuest(bool HasQuest, GameObject childDialogue)
