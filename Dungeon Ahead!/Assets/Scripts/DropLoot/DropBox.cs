@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+\brief Component used when dropping items from the gameObject
+*/
 [SerializeField]
 public class DropBox : MonoBehaviour
 {
+    /// List of items as loot to be dropped.
     public List<Item> loot;
     [Header("Properties")]
     [Range(0, 10)]
@@ -12,6 +16,7 @@ public class DropBox : MonoBehaviour
 
     private PlayerControls controls;
 
+    /// Defines the gameObject's DropBox as already looted
     private bool looted;
 
     private void Awake()

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+    Responsible for the Pause Menu in-game.
+*/
 public class PauseMenu : MonoBehaviour
 {
     public bool isGamePaused;
@@ -12,7 +15,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         //TODO: Add command functions on runtime for the pause menu buttons
-        //Em busca da código automática #2077
+        //Em busca do código automático #2077
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //Resume button
