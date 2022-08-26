@@ -5,15 +5,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Runtime.Serialization.Formatters.Binary;
 
+/**
+\brief Controls the logic at the Main Menu scene.
+Responsible for the menu buttons, file management and game options.
+*/
 public class MenuManager : MonoBehaviour
 {
 
+    /// First playable level when selecting LoadStartingGameScene() or NewGame()
     public SceneTransition sceneTransition;
     public void LoadStartingGameScene()
     {
         sceneTransition.StartCoroutine("SceneLoadingStart");
     }
 
+    /// Exits the game
     public void ExitGame()
     {
         Application.Quit();

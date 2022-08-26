@@ -3,18 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+\brief Controls the logic and the output of the given dialogue.
+Responsible for showing the dialogue, interaction with the dialogue box,
+and checking for quests after the given dialogue.
+*/
 public class DialogueManager : MonoBehaviour
 {
     public GameObject dialogueBox;
+    /// Output of the character's name
     public Text nameText;
+    /// Holder of the given text used at TypeSentence()
     public Text dialogueText;
 
+    /// Responsible for opening/closing the dialogue box in-game.
     public Animator animator;
 
     private Queue<string> senteces;
-
+    /// Follows the dialogue system when active.
+    /// Used to check if the player is far from the dialogueTrigger when true.
     public bool IsRunning = false;
+    /// Informs at the end of the dialogue if a there's an existing quest to
+    /// be given.
     private bool Quest;
+    /// Current dialogueTrigger. Used to indicate the active trigger.
+    /// Used as sequence of dialogues as hierarchy of child gameObjects.
     private GameObject dialogueTrigger;
 
     private Dialogue definedDialogue;
