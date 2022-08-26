@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
-\brief Component to create a dialogue in-editor and run it in-game.
-*/
 public class DialogueTrigger : MonoBehaviour
 {
     [Tooltip("Automatically checked depending if there's a quest component in gameobject")]
@@ -15,15 +12,12 @@ public class DialogueTrigger : MonoBehaviour
     [Tooltip("Defines the collider's size")]
     public float triggerSize = 1.5f;
 
-    /// Template of dialogue
     public Dialogue dialogue;
     private Player player;
     private KeyCode interact;
 
-    /// Next trigger to run a dialogue, as a hierarchy of children gameObjects.
     private DialogueTrigger childDialogue;
     
-    /// Defined distance until far enough to break the dialogue.
     float distance = 5f;
 
     private void Awake()
