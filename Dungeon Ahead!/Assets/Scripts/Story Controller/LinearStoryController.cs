@@ -21,18 +21,18 @@ public class Event
 }
 public class LinearStoryController : MonoBehaviour
 {
-    public bool EOS = false;
+    public int EventListCounter;
     public List<Event> EventList = new List<Event>();
 
     private void Start() {
-        for (int i = 0; i < EventList.Count; i++)
-        {
-            if (!EOS)
-            {
-                i--;
-                continue;
-            }
-            switch (EventList[i].function)
+        EventListCounter = 0;
+        
+        
+    }
+
+    private void RunEventList()
+    {
+        switch (EventList[i].function)
             {
                 case Event.Functions.test:
                 EventList[i].gameObject.GetComponent<TestController>().test(this);
@@ -41,7 +41,6 @@ public class LinearStoryController : MonoBehaviour
                 EventList[i].gameObject.GetComponent<TestController>().test_wait(this);
                 break;
             }
-        }
     }
 
 }
