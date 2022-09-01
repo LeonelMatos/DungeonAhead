@@ -21,26 +21,34 @@ public class Event
 }
 public class LinearStoryController : MonoBehaviour
 {
-    public int EventListCounter;
+    public int eventListCounter;
     public List<Event> EventList = new List<Event>();
 
     private void Start() {
-        EventListCounter = 0;
+        eventListCounter = 0;
         
-        
+        RunEventList();
     }
 
-    private void RunEventList()
+    public void RunEventList()
     {
-        switch (EventList[i].function)
-            {
-                case Event.Functions.test:
-                EventList[i].gameObject.GetComponent<TestController>().test(this);
-                break;
-                case Event.Functions.test_wait:
-                EventList[i].gameObject.GetComponent<TestController>().test_wait(this);
-                break;
-            }
-    }
+        if (eventListCounter < EventList.Count) {
+
+            switch (EventList[eventListCounter].function)
+                {
+                    case Event.Functions.test:
+                    EventList[eventListCounter].gameObject.GetComponent<TestController>().test(this);
+                    this.eventListCounter++;
+                    break;
+                    case Event.Functions.test_wait:
+                    EventList[eventListCounter].gameObject.GetComponent<TestController>().test_wait(this);
+                    this.eventListCounter++;
+                    break;
+                }
+        }
+        else
+            Debug.LogWarning("EventListCounter longer than expected:: " + eventListCounter);
+
+    }   
 
 }

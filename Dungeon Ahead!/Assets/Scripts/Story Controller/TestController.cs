@@ -12,6 +12,7 @@ public class TestController : MonoBehaviour
     {
         Debug.Log(test_string);
         lsc = controller;
+        test_end();
     }
 
     public void test_wait(LinearStoryController controller)
@@ -23,7 +24,7 @@ public class TestController : MonoBehaviour
 
     private void test_end()
     {
-        lsc.EOS = true;
+        lsc.RunEventList();
     }
 
     public IEnumerator Wait()
