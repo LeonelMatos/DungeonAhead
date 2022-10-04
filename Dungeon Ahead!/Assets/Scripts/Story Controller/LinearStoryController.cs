@@ -1,8 +1,6 @@
-using System.Diagnostics.Tracing;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 /// Event: element of EventList, defines an action (event)
 /// that will run in order at EventList
@@ -15,39 +13,56 @@ public class Event
         Dialogue,
         test,
         test_wait,
+        A_Wait,
+        LSC,
     }
     public Functions function;
+    public int value = 0;
 
 }
 public class LinearStoryController : MonoBehaviour
 {
-    public int eventListCounter;
+    [HideInInspector]
+    public int eventListCounter = -1;
     public List<Event> EventList = new List<Event>();
 
-    private void Start() {
-        eventListCounter = 0;
+    private void Reset() {
+        if (!gameObject.TryGetComponent(out AssistantController assistant)){
+            gameObject.AddComponent<AssistantController>();
+            Debug.Log($"{gameObject.name}: Created an AssistantController for this LinearStoryController");
+        }
+    }
+
+    private void Update() {
         
-        RunEventList();
+        if (Input.GetKeyDown(KeyCode.E) && gameObject.name == "LinearStoryController"){
+            eventListCounter = -1;
+            RunEventList();
+        }
     }
 
     public void RunEventList()
     {
+        eventListCounter++;
+
         if (eventListCounter < EventList.Count) {
 
             switch (EventList[eventListCounter].function)
                 {
                     case Event.Functions.test:
                     EventList[eventListCounter].gameObject.GetComponent<TestController>().test(this);
-                    this.eventListCounter++;
                     break;
                     case Event.Functions.test_wait:
                     EventList[eventListCounter].gameObject.GetComponent<TestController>().test_wait(this);
-                    this.eventListCounter++;
                     break;
+                    case Event.Functions.A_Wait:
+                    gameObject.GetComponent<AssistantController>().Wait(EventList[eventListCounter].value);
+                    break;
+                    case Event.Functions.LSC:
+                        EventList[eventListCounter].gameObject.GetComponent<LinearStoryController>().RunEventList();
+                        break;          
                 }
         }
-        else
-            Debug.LogWarning("EventListCounter longer than expected:: " + eventListCounter);
 
     }   
 
