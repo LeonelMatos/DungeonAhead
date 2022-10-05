@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class AssistantController : MonoBehaviour
 {
-    public int waitTime = 0;
+    [HideInInspector]
+    public int runOrder = 0;
+    private int waitTime = 0;
+
+    public List<int> waitValues = new List<int>();
+
     LinearStoryController lsc;
 
-    public void Wait(int value) 
+    public void Wait() 
     {
-        if (value != 0) waitTime = value;
+        if (runOrder >= waitValues.Count) {
+            Debug.LogWarning("runOrder of AssistantController bigger than waitValues list size");
+            return;
+        }
+
+        waitTime = waitValues[runOrder];
         StartCoroutine(WaitForSeconds());
     }
 

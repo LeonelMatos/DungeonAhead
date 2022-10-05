@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class TestController : MonoBehaviour
 {
+    [Header("DebugText")]
+    [Space(20)]
     public string test_string;
 
     private LinearStoryController lsc;
@@ -15,21 +18,8 @@ public class TestController : MonoBehaviour
         test_end();
     }
 
-    public void test_wait(LinearStoryController controller)
-    {
-        Debug.Log(test_string);
-        lsc = controller;
-        StartCoroutine(Wait());
-    }
-
     private void test_end()
     {
         lsc.RunEventList();
-    }
-
-    public IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(5);
-        test_end();
     }
 }

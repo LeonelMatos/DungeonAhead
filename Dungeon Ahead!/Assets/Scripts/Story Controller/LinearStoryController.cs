@@ -10,21 +10,20 @@ public class Event
     public GameObject gameObject;
     
     public enum Functions {
-        Dialogue,
-        test,
-        test_wait,
+        DebugText,
         A_Wait,
         LSC,
     }
     public Functions function;
-    public int value = 0;
 
 }
 public class LinearStoryController : MonoBehaviour
 {
+    public bool startOnRun;
     [HideInInspector]
     public int eventListCounter = -1;
     public List<Event> EventList = new List<Event>();
+
 
     private void Reset() {
         if (!gameObject.TryGetComponent(out AssistantController assistant)){
@@ -33,6 +32,16 @@ public class LinearStoryController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (startOnRun) {
+            eventListCounter = -1;
+            RunEventList();
+        
+        }
+    }
+
+    // For debug purposes
     private void Update() {
         
         if (Input.GetKeyDown(KeyCode.E) && gameObject.name == "LinearStoryController"){
@@ -40,7 +49,7 @@ public class LinearStoryController : MonoBehaviour
             RunEventList();
         }
     }
-
+    
     public void RunEventList()
     {
         eventListCounter++;
@@ -49,16 +58,15 @@ public class LinearStoryController : MonoBehaviour
 
             switch (EventList[eventListCounter].function)
                 {
-                    case Event.Functions.test:
+                    case Event.Functions.DebugText:
                     EventList[eventListCounter].gameObject.GetComponent<TestController>().test(this);
                     break;
-                    case Event.Functions.test_wait:
-                    EventList[eventListCounter].gameObject.GetComponent<TestController>().test_wait(this);
-                    break;
                     case Event.Functions.A_Wait:
-                    gameObject.GetComponent<AssistantController>().Wait(EventList[eventListCounter].value);
+                    gameObject.GetComponent<AssistantController>().Wait();
+                    gameObject.GetComponent<AssistantController>().runOrder++;
                     break;
                     case Event.Functions.LSC:
+                        EventList[eventListCounter].gameObject.GetComponent<LinearStoryController>().eventListCounter = -1;
                         EventList[eventListCounter].gameObject.GetComponent<LinearStoryController>().RunEventList();
                         break;          
                 }
