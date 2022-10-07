@@ -34,19 +34,10 @@ public class LinearStoryController : MonoBehaviour
 
     private void Start()
     {
-        if (startOnRun) {
+           if (startOnRun) {
             eventListCounter = -1;
             RunEventList();
         
-        }
-    }
-
-    // For debug purposes
-    private void Update() {
-        
-        if (Input.GetKeyDown(KeyCode.E) && gameObject.name == "LinearStoryController"){
-            eventListCounter = -1;
-            RunEventList();
         }
     }
     
