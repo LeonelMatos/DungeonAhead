@@ -8,11 +8,13 @@ using UnityEditor;
 public class Event
 {
     public GameObject gameObject;
-    
-    public enum Functions {
+
+    public enum Functions
+    {
         DebugText,
         A_Wait,
         LSC,
+        Dialogue,
     }
     public Functions function;
 
@@ -25,8 +27,10 @@ public class LinearStoryController : MonoBehaviour
     public List<Event> EventList = new List<Event>();
 
 
-    private void Reset() {
-        if (!gameObject.TryGetComponent(out AssistantController assistant)){
+    private void Reset()
+    {
+        if (!gameObject.TryGetComponent(out AssistantController assistant))
+        {
             gameObject.AddComponent<AssistantController>();
             Debug.Log($"{gameObject.name}: Created an AssistantController for this LinearStoryController");
         }
@@ -34,35 +38,40 @@ public class LinearStoryController : MonoBehaviour
 
     private void Start()
     {
-           if (startOnRun) {
+        if (startOnRun)
+        {
             eventListCounter = -1;
             RunEventList();
-        
+
         }
     }
-    
+
     public void RunEventList()
     {
         eventListCounter++;
 
-        if (eventListCounter < EventList.Count) {
+        if (eventListCounter < EventList.Count)
+        {
 
             switch (EventList[eventListCounter].function)
-                {
-                    case Event.Functions.DebugText:
+            {
+                case Event.Functions.DebugText:
                     EventList[eventListCounter].gameObject.GetComponent<TestController>().test(this);
                     break;
-                    case Event.Functions.A_Wait:
+                case Event.Functions.A_Wait:
                     gameObject.GetComponent<AssistantController>().Wait();
                     gameObject.GetComponent<AssistantController>().runOrder++;
                     break;
-                    case Event.Functions.LSC:
-                        EventList[eventListCounter].gameObject.GetComponent<LinearStoryController>().eventListCounter = -1;
-                        EventList[eventListCounter].gameObject.GetComponent<LinearStoryController>().RunEventList();
-                        break;          
-                }
+                case Event.Functions.LSC:
+                    EventList[eventListCounter].gameObject.GetComponent<LinearStoryController>().eventListCounter = -1;
+                    EventList[eventListCounter].gameObject.GetComponent<LinearStoryController>().RunEventList();
+                    break;
+                case Event.Functions.Dialogue:
+                    EventList[eventListCounter].gameObject.GetComponent<DialogueTrigger>().SetDialogue(this);
+                    break;
+            }
         }
 
-    }   
+    }
 
 }

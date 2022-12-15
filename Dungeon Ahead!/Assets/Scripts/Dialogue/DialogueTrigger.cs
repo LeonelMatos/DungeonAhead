@@ -22,9 +22,16 @@ public class DialogueTrigger : MonoBehaviour
 
     /// Next trigger to run a dialogue, as a hierarchy of children gameObjects.
     private DialogueTrigger childDialogue;
-    
+
     /// Defined distance until far enough to break the dialogue.
     float distance = 5f;
+
+    private LinearStoryController lsc;
+
+    public LinearStoryController getLSC()
+    {
+        return lsc;
+    }
 
     private void Awake()
     {
@@ -32,7 +39,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             gameObject.AddComponent<BoxCollider2D>();
             GetComponent<BoxCollider2D>().isTrigger = true;
-            GetComponent<BoxCollider2D>().size *= new Vector2 (triggerSize, triggerSize);
+            GetComponent<BoxCollider2D>().size *= new Vector2(triggerSize, triggerSize);
         }
 
     }
@@ -47,12 +54,19 @@ public class DialogueTrigger : MonoBehaviour
         else
             HasQuest = false;
     }
-    
+
     public void TriggerDialogue(Dialogue dialogue, DialogueTrigger childDialogue)
     {
         FindObjectOfType<DialogueManager>().CheckQuest(HasQuest, childDialogue.gameObject);
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
 
+        // Checks if exists a lsc to pass to DManager
+        if (lsc == null)
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        else
+        {
+            Debug.Log("LinearStoryController found, sending to DialogueManager");
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
+        }
 
     }
 
@@ -60,7 +74,31 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (dialogue.isDone)
         {
-            for (int i = 0; i < transform.childCount; i++) //Can get out of bounds
+            for (int i = 0; i < transform.childCount; i++) //Can get out of bounds (unchecked)
+            {
+                childDialogue = transform.GetChild(i).GetComponent<DialogueTrigger>();
+
+                if (!childDialogue.dialogue.isDone)
+                {
+                    TriggerDialogue(childDialogue.dialogue, childDialogue);
+                    break;
+                }
+                else if (childDialogue.dialogue.isDone && i == transform.childCount)
+                    break;
+            }
+        }
+        else
+            TriggerDialogue(dialogue, this);
+    }
+
+    /// Used at LinearStoryController. Stores the sent lsc.
+    public void SetDialogue(LinearStoryController lsc)
+    {
+        this.lsc = lsc;
+
+        if (dialogue.isDone)
+        {
+            for (int i = 0; i < transform.childCount; i++) //Can get out of bounds (unchecked)
             {
                 childDialogue = transform.GetChild(i).GetComponent<DialogueTrigger>();
 
@@ -92,18 +130,21 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if(playerPosition != null && isCloseToDialogue == true && FindObjectOfType<DialogueManager>().IsRunning == true)
-        {
-
-            distance = Vector2.Distance(playerPosition.position, this.transform.position);
-            //Debug.Log(distance);
-
-            if (distance >= 3.0f && distance <= 4.0f)
+        //Checks if a LinearStoryController was sent, so checking for position won't be necessary
+        if (lsc != null)
+            ///\todo This is incorrect. The if will run each frame even if the dialogueManager is not being used.
+            if (playerPosition != null && isCloseToDialogue == true && FindObjectOfType<DialogueManager>().IsRunning == true)
             {
-                FindObjectOfType<DialogueManager>().EndDialogue();
-                Debug.Log("Stopped dialogue");
+
+                distance = Vector2.Distance(playerPosition.position, this.transform.position);
+                //Debug.Log(distance);
+
+                if (distance >= 3.0f && distance <= 4.0f)
+                {
+                    FindObjectOfType<DialogueManager>().EndDialogue();
+                    Debug.Log("Stopped dialogue");
+                }
             }
-        }
 
         if (Collider != null)
         {

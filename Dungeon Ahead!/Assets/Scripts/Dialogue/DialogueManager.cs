@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 /**
@@ -34,6 +35,12 @@ public class DialogueManager : MonoBehaviour
 
     private Player player;
 
+    /// DialogueTrigger passed when received a LinearStoryController
+    /// at this trigger
+    private DialogueTrigger trigger;
+
+
+
     private void Awake() {
         
     }
@@ -55,6 +62,28 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue)
     {
+        definedDialogue = dialogue;
+        animator.SetBool("IsOpen", true);
+        IsRunning = animator.GetBool("IsOpen");
+        //Debug.Log("Starting conversation with " + dialogue.name); //Runs multiple times
+
+        dialogue.isDone = false;    //Update
+        nameText.text = dialogue.name;
+
+        senteces.Clear();
+
+        foreach (string sentence in dialogue.sentences)
+        {
+            senteces.Enqueue(sentence);
+        }
+
+        DisplayNextSentence();
+    }
+
+    public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger)
+    {
+        this.trigger = trigger;
+
         definedDialogue = dialogue;
         animator.SetBool("IsOpen", true);
         IsRunning = animator.GetBool("IsOpen");
@@ -108,6 +137,11 @@ public class DialogueManager : MonoBehaviour
     {
         animator.SetBool("IsOpen", false);
         IsRunning = false;
+        if (trigger != null)
+        {
+            Debug.Log("Returning to given LinearStoryController");
+            trigger.getLSC().RunEventList();
+        }
 
     }
 
