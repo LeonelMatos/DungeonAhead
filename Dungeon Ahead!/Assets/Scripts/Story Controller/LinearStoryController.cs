@@ -11,10 +11,17 @@ public class Event
 
     public enum Functions
     {
-        DebugText,
-        A_Wait,
-        LSC,
-        Dialogue,
+        Debug_Text = 10,
+        Assistant_Wait = 100,
+        LSC = 500,
+        Dialogue = 1000,
+        DropLoot = 1200,
+        Inventory_AddItem = 1400,
+        Inventory_RemoveItem,
+        Effects_AddEffect = 1600,
+        Effects_RemoveEffect,
+        Effects_UseMilk,
+
     }
     public Functions function;
 
@@ -55,10 +62,10 @@ public class LinearStoryController : MonoBehaviour
 
             switch (EventList[eventListCounter].function)
             {
-                case Event.Functions.DebugText:
+                case Event.Functions.Debug_Text:
                     EventList[eventListCounter].gameObject.GetComponent<TestController>().test(this);
                     break;
-                case Event.Functions.A_Wait:
+                case Event.Functions.Assistant_Wait:
                     gameObject.GetComponent<AssistantController>().Wait();
                     gameObject.GetComponent<AssistantController>().runOrder++;
                     break;
