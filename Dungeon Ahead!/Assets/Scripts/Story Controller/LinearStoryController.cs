@@ -21,6 +21,16 @@ public class Event
         Effects_AddEffect = 1600,
         Effects_RemoveEffect,
         Effects_UseMilk,
+        Effects_CameraFadeIn,
+        Effects_CameraFadeOut,
+        Player_TakeDamage = 1800,
+        Player_TakeEnergy,
+        Player_SetMaxHealth,
+        Player_SetMaxEnergy,
+        Player_SetHealth,
+        Player_SetEnergy,
+        Quest_OpenQuestWindow = 2000,
+
 
     }
     public Functions function;
