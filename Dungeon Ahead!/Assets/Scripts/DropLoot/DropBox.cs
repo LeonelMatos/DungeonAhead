@@ -19,6 +19,9 @@ public class DropBox : MonoBehaviour
     /// Defines the gameObject's DropBox as already looted
     private bool looted;
 
+    /// Used when this script is summoned by the given lsc
+    private LinearStoryController lsc;
+
     private void Awake()
     {
         if (!TryGetComponent(out BoxCollider2D collider))
@@ -27,14 +30,14 @@ public class DropBox : MonoBehaviour
             newTrigger.isTrigger = true;
             newTrigger.size = new Vector2(4f, 4f);
         }
-        else if(TryGetComponent(out BoxCollider2D gotCollider) && !gotCollider.isTrigger)
+        else if (TryGetComponent(out BoxCollider2D gotCollider) && !gotCollider.isTrigger)
         {
             BoxCollider2D newTrigger = gameObject.AddComponent<BoxCollider2D>();
             newTrigger.isTrigger = true;
             newTrigger.size = new Vector2(4f, 4f);
         }
     }
-    
+
     void Start()
     {
         controls = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerControls;
@@ -54,25 +57,31 @@ public class DropBox : MonoBehaviour
     {
         int random;
 
-        if (Input.GetKeyDown(controls.Interact))
+        random = Random.Range(0, lootMaxCount);
+        if (!looted)
         {
-            random = Random.Range(0, lootMaxCount);
-            if (!looted)
+            if (loot.Count == 0)
             {
-                if (loot.Count == 0)
+                Debug.Log("(no loot) Generating loot...");
+                for (int i = 0; i <= random; i++)
                 {
-                    Debug.Log("(no loot) Generating loot...");
-                    for (int i = 0; i <= random; i++)
-                    {
-                        loot.Add(new Item { itemType = GenerateLoot(Random.Range(1, 9)), amount = 1, itemText = new ItemText{title = ""}});
-                    }
+                    loot.Add(new Item { itemType = GenerateLoot(Random.Range(1, 9)), amount = 1, itemText = new ItemText { title = "" } });
                 }
-
-                GetComponent<Animator>().SetTrigger("OpenBarrel");
-                StartCoroutine("DropLoot");
-                looted = true;
             }
+
+            if (gameObject.TryGetComponent<Animator>(out Animator animator))
+                GetComponent<Animator>().SetTrigger("OpenBarrel");
+            StartCoroutine("DropLoot");
+            looted = true;
+            if (lsc != null)
+                lsc.RunEventList();
         }
+    }
+
+    public void OpenLoot(LinearStoryController lsc)
+    {
+        this.lsc = lsc;
+        OpenLoot();
     }
 
     private IEnumerator DropLoot()

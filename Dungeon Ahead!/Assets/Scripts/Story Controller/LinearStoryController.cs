@@ -86,6 +86,9 @@ public class LinearStoryController : MonoBehaviour
                 case Event.Functions.Dialogue:
                     EventList[eventListCounter].gameObject.GetComponent<DialogueTrigger>().SetDialogue(this);
                     break;
+                case Event.Functions.DropLoot:
+                    EventList[eventListCounter].gameObject.GetComponent<DropBox>().OpenLoot(this);
+                    break;
             }
         }
 
