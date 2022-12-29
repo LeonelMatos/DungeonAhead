@@ -6,11 +6,18 @@ public class AssistantController : MonoBehaviour
 {
     [HideInInspector]
     public int runOrder = 0;
+    [HideInInspector]
+    public int inventoryOrder = 0;
     private int waitTime = 0;
 
+    [Header("Auxiliary Values")]
+    [Tooltip("Used in the Assistant methods at the LSC (ex: Wait)")]
+    ///List of int values of time used at the correspondent wait method at LSC
     public List<int> waitValues = new List<int>();
 
-    LinearStoryController lsc;
+    [Space(20)]
+    [Tooltip("Used in the Inventory methods at the LSC")]
+    public List<Item> itemList = new List<Item>();
 
     public void Wait() 
     {
@@ -21,6 +28,11 @@ public class AssistantController : MonoBehaviour
 
         waitTime = waitValues[runOrder];
         StartCoroutine(WaitForSeconds());
+    }
+
+    public void AddItem()
+    {
+        if (inventoryOrder >= )
     }
 
     private void ReturnLSC()

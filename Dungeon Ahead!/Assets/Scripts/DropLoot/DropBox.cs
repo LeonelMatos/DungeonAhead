@@ -74,7 +74,7 @@ public class DropBox : MonoBehaviour
             StartCoroutine("DropLoot");
             looted = true;
             if (lsc != null)
-                lsc.RunEventList();
+                StartCoroutine(WaitForDrop());
         }
     }
 
@@ -82,6 +82,12 @@ public class DropBox : MonoBehaviour
     {
         this.lsc = lsc;
         OpenLoot();
+    }
+
+    private IEnumerator WaitForDrop()
+    {
+        yield return new WaitForSeconds(2);
+        lsc.RunEventList();
     }
 
     private IEnumerator DropLoot()
