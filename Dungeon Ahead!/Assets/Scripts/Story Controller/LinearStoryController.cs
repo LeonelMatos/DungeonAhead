@@ -90,6 +90,10 @@ public class LinearStoryController : MonoBehaviour
                     EventList[eventListCounter].gameObject.GetComponent<DropBox>().OpenLoot(this);
                     break;
                 case Event.Functions.Inventory_AddItem:
+                    GetComponent<AssistantController>().AddItem();
+                    break;
+                case Event.Functions.Inventory_RemoveItem:
+                    GetComponent<AssistantController>().RemoveItem();
                     break;
             }
         }

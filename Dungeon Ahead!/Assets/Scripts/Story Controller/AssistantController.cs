@@ -30,19 +30,40 @@ public class AssistantController : MonoBehaviour
         StartCoroutine(WaitForSeconds());
     }
 
-    public void AddItem()
-    {
-        if (inventoryOrder >= )
-    }
-
-    private void ReturnLSC()
-    {
-        gameObject.GetComponent<LinearStoryController>().RunEventList();
-    }
-
     public IEnumerator WaitForSeconds()
     {
         yield return new WaitForSeconds(waitTime);
-        ReturnLSC();
+        GetComponent<LinearStoryController>().RunEventList();
     }
+
+    public void AddItem()
+    {
+        if (inventoryOrder >= itemList.Count)
+        {
+            Debug.LogWarning("inventoryOrder of AssistantController bigger than itemList size");
+            return;
+        }
+
+        Inventory inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
+
+        inventory.AddItem(itemList[inventoryOrder]);
+
+        inventoryOrder++;
+        GetComponent<LinearStoryController>().RunEventList();
+    }
+
+    public void RemoveItem()
+    {
+        if (inventoryOrder >= itemList.Count)
+        {
+            Debug.LogWarning("inventoryOrder of AssistantController bigger than itemList size");
+            return;
+        }
+
+        Inventory inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
+
+        Debug.Log("Removed item " + itemList[inventoryOrder].ToString());
+        inventory.RemoveItem(itemList[inventoryOrder]);
+    }
+
 }
