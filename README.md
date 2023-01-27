@@ -30,7 +30,7 @@ out of this, I may reconsider my plans.
 ## Changelog
 
 Changelog currently not available.
-## Autores ✨
+## Author ✒️
 
 - [@LeonelMatos](https://www.github.com/LeonelMatos)
 
