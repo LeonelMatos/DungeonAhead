@@ -19,7 +19,7 @@ public class TreeOverlay_Trigger : MonoBehaviour
 
     void Update()
     {
-        if (transform.parent.transform.position.y + Collider.offset.y - layerOffset > player.transform.position.y)
+        if (transform.parent.transform.position.y + Collider.offset.y - layerOffset + 2 > player.transform.position.y)
         {
             if(spriteRenderer.sortingLayerName != "Default")
                 spriteRenderer.sortingLayerName = "Default";

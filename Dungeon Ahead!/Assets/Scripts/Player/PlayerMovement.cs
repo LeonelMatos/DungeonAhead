@@ -134,6 +134,6 @@ public class PlayerMovement : MonoBehaviour
             runSpeed = runSpeed * 2.0f;
             changeSpeed = false;
         }
-        anim.speed = 2;
+        anim.speed = 2.5f;
     }
 }
