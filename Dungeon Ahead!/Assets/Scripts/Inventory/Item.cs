@@ -1,7 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using TriInspector;
 
 [Serializable]
+[DeclareHorizontalGroup("top")]
+[DeclareHorizontalGroup("bottom")]
 public class Item
 {
     public enum ItemType    //Insert itemType here by entry order
@@ -17,11 +20,14 @@ public class Item
         Book,
         RandomPotion,
     }
-
+    [GUIColor(0.6f, 0.9f, 1.0f), LabelWidth(70), Group("top")]
     public ItemType itemType;
+    [Group("top")]
+    [GUIColor(0.6f, 0.9f, 1.0f), LabelWidth(45)]
     public int amount;
-    [HideInInspector()]
+    [HideInInspector]
     public bool isDestroyed; //Used at LevelData
+    [Group("bottom")]
     public ItemText itemText;
 
     public Sprite GetSprite()   //Insert sprite here

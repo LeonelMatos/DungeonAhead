@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using TriInspector;
 
 /// Event: element of EventList, defines an action (event)
 /// that will run in order at EventList
+[DeclareHorizontalGroup("title")]
+[DeclareHorizontalGroup("vars")]
 [System.Serializable]
 public class Event
 {
+    [Required, Group("vars")]
+    [HideLabel]
     public GameObject gameObject;
 
     public enum Functions
@@ -33,6 +38,7 @@ public class Event
 
 
     }
+    [Group("vars")]
     public Functions function;
 
 }

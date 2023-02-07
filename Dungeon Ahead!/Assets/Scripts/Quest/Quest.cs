@@ -13,9 +13,11 @@ public class Quest
     public string description;
     public Item reward1;
     [Tooltip("Must be the same as Item.amount \n(except when the item is non-Stackable)")]
+    [Range(0, 20)]
     public int reward1Amount;
     public Item reward2;
     [Tooltip("Must be the same as Item.amount \n(except when the item is non-Stackable)")]
+    [Range(0, 20)]
     public int reward2Amount;
     [Space(10)]
     public QuestGoal goal;
