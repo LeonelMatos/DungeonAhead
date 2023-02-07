@@ -19,9 +19,10 @@ public class AssistantController : MonoBehaviour
     [Tooltip("Used in the Inventory methods at the LSC")]
     public List<Item> itemList = new List<Item>();
 
-    public void Wait() 
+    public void Wait()
     {
-        if (runOrder >= waitValues.Count) {
+        if (runOrder >= waitValues.Count)
+        {
             Debug.LogWarning("runOrder of AssistantController bigger than waitValues list size");
             return;
         }
@@ -53,17 +54,34 @@ public class AssistantController : MonoBehaviour
     }
 
     public void RemoveItem()
-    {
+    {/*
         if (inventoryOrder >= itemList.Count)
         {
             Debug.LogWarning("inventoryOrder of AssistantController bigger than itemList size");
             return;
-        }
+        }*/
 
         Inventory inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inventory;
 
-        Debug.Log("Removed item " + itemList[inventoryOrder].ToString());
-        inventory.RemoveItem(itemList[inventoryOrder]);
+        for (int i = 0; i < inventory.GetItemList().Count; i++)
+        {
+            if (itemList[inventoryOrder].itemType == inventory.GetItemList()[i].itemType)
+            {
+                Debug.Log($"A_RemoveItem: item {itemList[inventoryOrder].itemType} found in player inventory");
+
+                if (!itemList[inventoryOrder].IsStackable())
+                {
+                    inventory.RemoveItem(inventory.GetItemList()[i]);
+                }
+                else
+                {
+                    inventory.GetItemList()[i].amount--;
+                }
+                Debug.Log("Removed item " + itemList[inventoryOrder].itemType);
+                return;
+            }
+        }
+        Debug.LogWarning($"A_RemoveItem: Could not remove the item {itemList[inventoryOrder].itemType}");
     }
 
 }
