@@ -146,7 +146,7 @@ public class DialogueTrigger : MonoBehaviour
                 }
             }
 
-        if (Collider != null)
+        if (Collider != null  && FindObjectOfType<DialogueManager>().IsRunning)
         {
             if (Collider.gameObject.tag == "Player" && IsOnTrigger && Input.GetKey(interact))
                 SetDialogue();
