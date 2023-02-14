@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     {
         windowTooltip = tooltip;
     }
-    
+
     private void Start()
     {
         inventory = new Inventory(UseItem);
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
         effects.activeEffects = startingPosition.activeEffects;
         effects.timeCounter = startingPosition.timeCounter;
 
-        if(effects.activeEffects.Count != 0)
+        if (effects.activeEffects.Count != 0)
         {
             int count = effects.activeEffects.Count;
             for (int i = 0; i < count; i++)
@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(openInv0) || Input.GetKeyDown(openInv1))
         {
             inventoryUI.OpenInventory();
-            windowTooltip.HideTooltip_Public();           
+            windowTooltip.HideTooltip_Public();
         }
         if (Input.GetKeyDown(healthDebug))
         {
@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
         {
             case Item.ItemType.HealthPotion:
                 //Debug.Log("Used HealthPotion");
-                if(playerStats.health != playerStats.maxHealth)
+                if (playerStats.health != playerStats.maxHealth)
                 {
                     RemoveUsedItem(Item.ItemType.HealthPotion);
                     playerStats.TakeDamage(-20);
@@ -174,21 +174,21 @@ public class Player : MonoBehaviour
                 break;
             case Item.ItemType.EnergyPotion:
                 //Debug.Log("Used EnergyPotion");
-                if(playerStats.energy != playerStats.maxEnergy)
+                if (playerStats.energy != playerStats.maxEnergy)
                 {
-                RemoveUsedItem(Item.ItemType.EnergyPotion);
-                playerStats.TakeEnergy(-20);
+                    RemoveUsedItem(Item.ItemType.EnergyPotion);
+                    playerStats.TakeEnergy(-20);
                 }
                 else
                     StartCoroutine(maxValueAnimation(GameObject.FindGameObjectWithTag("EnergyBar/Icon")));
                 break;
             case Item.ItemType.Medkit:
                 //Debug.Log("Used Medkit");
-                if(playerStats.health < playerStats.maxHealth)
+                if (playerStats.health < playerStats.maxHealth)
                 {
-                RemoveUsedItem(Item.ItemType.Medkit);
-                RemoveUsedItem2(item);
-                playerStats.TakeDamage(-50);
+                    RemoveUsedItem(Item.ItemType.Medkit);
+                    RemoveUsedItem2(item);
+                    playerStats.TakeDamage(-50);
                 }
                 else
                 {
@@ -227,16 +227,21 @@ public class Player : MonoBehaviour
     }
 
     //Save/Load test debug
-    public void SaveGame ()
+    public void SaveGame()
     {
         SaveSystem.SaveGame(this);
     }
 
-    public void LoadGame ()
+    public void LoadGame()
     {
+
+        PlayerData data;
+
+        if (SaveSystem.LoadGame() == null) return;
+
+        data = SaveSystem.LoadGame();
+        
         GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().StartCoroutine(GameObject.FindGameObjectWithTag("PauseMenu").GetComponent<PauseMenu>().LoadTransitionStart());
-       
-        PlayerData data = SaveSystem.LoadGame();
 
         //TODO (I think it works, idk never tested... It just works~)
         if (gameObject.scene.name != data.loadedLevel)
@@ -265,19 +270,19 @@ public class Player : MonoBehaviour
     }
 
     //Health on max Animation
-     //Used on UseItem() at Player for visual feedback
+    //Used on UseItem() at Player for visual feedback
     public IEnumerator maxValueAnimation(GameObject image)
     {
         for (int i = 0; i < 3; i++)
         {
-            for(int j = 0; j < 10; j++)
+            for (int j = 0; j < 10; j++)
             {
-                image.transform.localScale += new Vector3 (0.03f, 0.03f, 0f);
+                image.transform.localScale += new Vector3(0.03f, 0.03f, 0f);
                 yield return new WaitForSeconds(0.01f);
             }
-            for(int j = 0; j < 10; j++)
+            for (int j = 0; j < 10; j++)
             {
-                image.transform.localScale += new Vector3 (-0.03f, -0.03f, 0f);
+                image.transform.localScale += new Vector3(-0.03f, -0.03f, 0f);
                 yield return new WaitForSeconds(0.01f);
             }
         }

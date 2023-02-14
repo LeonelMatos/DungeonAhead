@@ -21,11 +21,11 @@ public static class SaveSystem
     public static PlayerData LoadGame()
     {
         //Notification
-        GameObject.FindGameObjectWithTag("Notification").GetComponent<Notification>().StartNotification("Game loaded.", "system");
-        Debug.Log("Game loaded");
+        Debug.Log("Game loading");
         string path = Application.persistentDataPath + "/save.bruh";
         if (File.Exists(path))
         {
+            GameObject.FindGameObjectWithTag("Notification").GetComponent<Notification>().StartNotification("Game loaded.", "system");
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 

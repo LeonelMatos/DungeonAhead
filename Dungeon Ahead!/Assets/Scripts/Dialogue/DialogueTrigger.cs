@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /**
 \brief Component to create a dialogue in-editor and run it in-game.
@@ -27,6 +25,13 @@ public class DialogueTrigger : MonoBehaviour
     float distance = 5f;
 
     private LinearStoryController lsc;
+
+    private bool activeTrigger = false;
+
+    public void SetActiveTrigger(bool value)
+    {
+        activeTrigger = value;
+    }
 
     public LinearStoryController getLSC()
     {
@@ -59,15 +64,8 @@ public class DialogueTrigger : MonoBehaviour
     {
         FindObjectOfType<DialogueManager>().CheckQuest(HasQuest, childDialogue.gameObject);
 
-        // Checks if exists a lsc to pass to DManager
-        if (lsc == null)
-            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
-        else
-        {
-            Debug.Log("LinearStoryController found, sending to DialogueManager");
-            FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
-        }
-
+        Debug.Log("LinearStoryController found, sending to DialogueManager");
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
     }
 
     public void SetDialogue()
@@ -76,6 +74,8 @@ public class DialogueTrigger : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++) //Can get out of bounds (unchecked)
             {
+                if (!childDialogue.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) continue;
+
                 childDialogue = transform.GetChild(i).GetComponent<DialogueTrigger>();
 
                 if (!childDialogue.dialogue.isDone)
@@ -100,6 +100,8 @@ public class DialogueTrigger : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++) //Can get out of bounds (unchecked)
             {
+                if (!childDialogue.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) continue;
+
                 childDialogue = transform.GetChild(i).GetComponent<DialogueTrigger>();
 
                 if (!childDialogue.dialogue.isDone)
@@ -111,11 +113,12 @@ public class DialogueTrigger : MonoBehaviour
                     break;
             }
         }
+
         else
             TriggerDialogue(dialogue, this);
     }
 
-    private bool IsOnTrigger;
+    private bool IsOnTrigger; //Checks for player's position on trigger
     private Collider2D Collider;
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -133,7 +136,7 @@ public class DialogueTrigger : MonoBehaviour
         //Checks if a LinearStoryController was sent, so checking for position won't be necessary
         if (lsc != null)
             ///\todo This is incorrect. The if will run each frame even if the dialogueManager is not being used.
-            if (playerPosition != null && isCloseToDialogue == true && FindObjectOfType<DialogueManager>().IsRunning == true)
+            if (playerPosition != null && isCloseToDialogue == true /*&& FindObjectOfType<DialogueManager>().IsRunning == true*/)
             {
 
                 distance = Vector2.Distance(playerPosition.position, this.transform.position);
@@ -143,13 +146,18 @@ public class DialogueTrigger : MonoBehaviour
                 {
                     FindObjectOfType<DialogueManager>().EndDialogue();
                     Debug.Log("Stopped dialogue");
+                    activeTrigger = false;
                 }
             }
 
-        if (Collider != null  && FindObjectOfType<DialogueManager>().IsRunning)
+        if (Collider != null)
         {
-            if (Collider.gameObject.tag == "Player" && IsOnTrigger && Input.GetKey(interact))
-                SetDialogue();
+            if (!activeTrigger)
+                if (Collider.gameObject.tag == "Player" && IsOnTrigger && Input.GetKey(interact))
+                {
+                    SetDialogue();
+                    activeTrigger = true;
+                }
         }
     }
 }

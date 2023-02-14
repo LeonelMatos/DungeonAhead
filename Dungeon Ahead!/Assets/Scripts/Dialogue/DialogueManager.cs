@@ -41,11 +41,13 @@ public class DialogueManager : MonoBehaviour
 
 
 
-    private void Awake() {
-        
+    private void Awake()
+    {
+
     }
 
-    void Start() {
+    void Start()
+    {
         senteces = new Queue<string>();
         dialogueBox.SetActive(true);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -58,26 +60,6 @@ public class DialogueManager : MonoBehaviour
         {
             DisplayNextSentence();
         }
-    }
-
-    public void StartDialogue (Dialogue dialogue)
-    {
-        definedDialogue = dialogue;
-        animator.SetBool("IsOpen", true);
-        IsRunning = animator.GetBool("IsOpen");
-        //Debug.Log("Starting conversation with " + dialogue.name); //Runs multiple times
-
-        dialogue.isDone = false;    //Update
-        nameText.text = dialogue.name;
-
-        senteces.Clear();
-
-        foreach (string sentence in dialogue.sentences)
-        {
-            senteces.Enqueue(sentence);
-        }
-
-        DisplayNextSentence();
     }
 
     public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger)
@@ -104,17 +86,17 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if(senteces.Count == 0)
+        if (senteces.Count == 0)
         {
             EndDialogue();
             if (Quest)
             {
                 dialogueTrigger.GetComponent<QuestGiver>().SetQuest(definedDialogue);
             }
-            else
-            {
-                definedDialogue.isDone = true; //Update    //Set an option to see if I want to play the dialogue
-            }                                              //just once
+            /*else
+            {*/
+                definedDialogue.isDone = true;
+            //}
             return;
         }
 
@@ -123,10 +105,10 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(TypeSentence(sentence));
     }
 
-    IEnumerator TypeSentence (string sentence)
+    IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
-        foreach(char letter in sentence.ToCharArray())
+        foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
             yield return null;
@@ -137,11 +119,13 @@ public class DialogueManager : MonoBehaviour
     {
         animator.SetBool("IsOpen", false);
         IsRunning = false;
-        if (trigger != null)
-        {
-            Debug.Log("Returning to given LinearStoryController");
-            trigger.getLSC().RunEventList();
-        }
+        trigger.SetActiveTrigger(false);
+
+        if (trigger.getLSC() == null) return;
+
+        Debug.Log("Returning to given LinearStoryController");
+        trigger.getLSC().RunEventList();
+
 
     }
 

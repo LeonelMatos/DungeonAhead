@@ -57,7 +57,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadGame()
     {
-        SaveSystem.LoadGame();
+        if(SaveSystem.LoadGame() == null) return;
     }
 
 
