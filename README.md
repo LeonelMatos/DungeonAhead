@@ -20,6 +20,12 @@ there will be plenty of them.
 ![App Screenshot](https://res.cloudinary.com/practicaldev/image/fetch/s--xvIsvQIH--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dwjvvmbixsn4kgv3ujvc.png)
 
 
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) Structure
+[![Structure](https://images.repography.com/35369537/LeonelMatos/DungeonAhead/structure/hfr2Z-C3vAQMUfX-1_sFZsdOde7GO8egza9dkYxN6ok/cpnaRnlVXTveSjcSwVvMjDqKnzWs6DIHAw0kXBVCFBk_table.svg)](https://github.com/LeonelMatos/DungeonAhead)
+
+
+
+
 ## Notice
 Dungeon Ahead! as of this update **0.1.3** still lacks content such as story, combat mechanics,
 textures, levels and many other features that are still stashed away in a *TODO* list.
@@ -33,4 +39,5 @@ Changelog currently not available.
 ## Author ✒️
 
 - [@LeonelMatos](https://www.github.com/LeonelMatos)
+
 
