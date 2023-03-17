@@ -20,9 +20,9 @@ there will be plenty of them.
 ![App Screenshot](https://res.cloudinary.com/practicaldev/image/fetch/s--xvIsvQIH--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dwjvvmbixsn4kgv3ujvc.png)
 
 
-## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) Structure
-[![Structure](https://images.repography.com/35369537/LeonelMatos/DungeonAhead/structure/hfr2Z-C3vAQMUfX-1_sFZsdOde7GO8egza9dkYxN6ok/cpnaRnlVXTveSjcSwVvMjDqKnzWs6DIHAw0kXBVCFBk_table.svg)](https://github.com/LeonelMatos/DungeonAhead)
-
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Recent activity [![Time period](https://images.repography.com/35369537/LeonelMatos/DungeonAhead/recent-activity/hfr2Z-C3vAQMUfX-1_sFZsdOde7GO8egza9dkYxN6ok/DYxnF2O8xbBI-A3LgZCm8QB-LK1yIsuvK9rVNt48O9I_badge.svg)](https://repography.com)
+[![Timeline graph](https://images.repography.com/35369537/LeonelMatos/DungeonAhead/recent-activity/hfr2Z-C3vAQMUfX-1_sFZsdOde7GO8egza9dkYxN6ok/DYxnF2O8xbBI-A3LgZCm8QB-LK1yIsuvK9rVNt48O9I_timeline.svg)](https://github.com/LeonelMatos/DungeonAhead/commits)
+[![Trending topics](https://images.repography.com/35369537/LeonelMatos/DungeonAhead/recent-activity/hfr2Z-C3vAQMUfX-1_sFZsdOde7GO8egza9dkYxN6ok/DYxnF2O8xbBI-A3LgZCm8QB-LK1yIsuvK9rVNt48O9I_words.svg)](https://github.com/LeonelMatos/DungeonAhead/commits)
 
 
 
